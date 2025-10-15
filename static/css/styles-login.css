@@ -1,0 +1,56 @@
+/*
+ * Estilos Exclusivos para a Tela de Login do Meu Neto
+ * Fonte: Plus Jakarta Sans
+ * Cor Principal: #64C5B9 (Azul Suave/Teal)
+ */
+
+.login-body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    /* Fundo azul suave */
+    background-color: #f0f8ff; 
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    /* Evita scroll desnecessário em telas pequenas */
+    padding: 20px; 
+}
+
+.login-card {
+    max-width: 400px;
+    width: 90%;
+    padding: 40px;
+    border-radius: 15px;
+    /* Sombra suave e agradável */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); 
+}
+
+
+/* Novo estilo para a imagem da logo */
+.login-logo {
+    /* Define o tamanho máximo da logo */
+    max-width: 150px; 
+    height: auto;
+    /* Garante que fique centralizada no bloco */
+    display: block; 
+    margin: 0 auto 15px auto; 
+}
+
+
+/* Estilo do Botão Primário (Consistente com o botão da homepage) */
+.btn-meuneto-soft {
+    background-color: #1c7ed6;
+    border-color: #1c7ed6;
+    color: #FFFFFF;
+    font-weight: 600;
+}
+
+.btn-meuneto-soft:hover {
+    background-color: #1c7ed6;
+    border-color: #1c7ed6;
+}
+
+/* Estilo para links de cadastro ou recuperação que usam a cor primária */
+.text-meuneto-soft {
+    color: #1c7ed6 !important;
+}

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro - Usuário Idoso | Meu Neto</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <link rel="stylesheet" href="../static/css/styles-cadastroidoso.css"> 
+</head>
+
+<body class="cadastro-body">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="cadastro-card bg-white">
+                
+                <div class="text-center mb-4">
+                    <img src="../static/assets/meunetosvg.svg" alt="Logo Meu Neto" class="login-logo">
+                    <h1 class="logo-text">Cadastre-se</h1>
+                    <p class="text-muted">Junte-se ao Meu Neto e encontre o apoio que você precisa.</p>
+                </div>
+
+                <form>
+                    <h5 class="mb-3">Informações de Contato</h5>
+                    
+                    <div class="mb-3">
+                        <label for="fullName" class="form-label">Seu Nome Completo</label>
+                        <input type="text" class="form-control" id="fullName" placeholder="Ex: Maria Silva" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="emailInput" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="emailInput" placeholder="seu.email@exemplo.com" required>
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="phoneInput" class="form-label">Telefone (Somente Números)</label>
+                        <input 
+                            type="tel" 
+                            class="form-control" 
+                            id="phoneInput" 
+                            placeholder="99999999999" 
+                            required 
+                            maxlength="11"
+                            oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 15)">
+                        <div class="form-text">Máximo de 15 dígitos.</div>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label for="passwordInput" class="form-label">Crie uma Senha</label>
+                        <input type="password" class="form-control" id="passwordInput" required>
+                    </div>
+                    <div class="mb-4">
+                        <label for="passwordInput" class="form-label">Repita a Senha</label>
+                        <input type="password" class="form-control" id="passwordInput" required>
+                    </div>
+                    
+                    <h5 class="mb-3">Endereço e Detalhes do Idoso</h5>
+
+                    <div class="mb-3">
+                        <label for="cepInput" class="form-label">CEP</label>
+                        <input type="text" class="form-control" id="cepInput" placeholder="00000-000" required>
+                    </div>
+                    
+                    <div class="row mb-3">
+                        <div class="col-md-9">
+                            <label for="streetInput" class="form-label">Rua/Avenida</label>
+                            <input type="text" class="form-control" id="streetInput" placeholder="Ex: Rua das Flores" required>
+                        </div>
+                        <div class="col-md-3">
+                            <label for="numberInput" class="form-label">Número</label>
+                            <input type="text" class="form-control" id="numberInput" placeholder="123" required>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="neighborhoodInput" class="form-label">Bairro</label>
+                        <input type="text" class="form-control" id="neighborhoodInput" placeholder="Ex: Centro" required>
+                    </div>
+                    
+                    <div class="row mb-4">
+                        <div class="col-md-8">
+                            <label for="cityInput" class="form-label">Cidade</label>
+                            <input type="text" class="form-control" id="cityInput" placeholder="Ex: São Paulo" required>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="stateInput" class="form-label">Estado</label>
+                            <input type="text" class="form-control" id="stateInput" placeholder="Ex: SP" maxlength="2" required>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="relationship" class="form-label">Qual sua relação com o idoso?</label>
+                        <select class="form-select" id="relationship" required>
+                            <option value="">Selecione...</option>
+                            <option value="proprio">Sou o próprio Idoso</option>
+                            <option value="filho">Filho(a)</option>
+                            <option value="neto">Neto(a)</option>
+                            <option value="outro">Outro Familiar / Cuidador</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-4 form-check">
+                        <input type="checkbox" class="form-check-input" id="termsCheck" required>
+                        <label class="form-check-label small" for="termsCheck">
+                            Li e concordo com os <a href="#" class="text-meuneto-soft">Termos de Uso</a> e a <a href="#" class="text-meuneto-soft">Política de Privacidade</a>.
+                        </label>
+                    </div>
+
+                    <button type="submit" class="btn btn-meuneto-soft w-100 mb-3">Concluir Cadastro</button>
+
+                    <p class="text-center small text-muted">
+                        Já tem conta? <a href="/login" class="text-meuneto-soft text-decoration-none fw-bold">Faça login</a>
+                    </p>
+                </form>
+
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

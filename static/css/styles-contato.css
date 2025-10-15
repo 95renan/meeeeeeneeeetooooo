@@ -1,0 +1,74 @@
+/*
+ * Estilos da Página de Contato do Meu Neto
+ * Cor Principal: #1c7ed6 (Novo Azul Forte)
+ * Cor Secundária (Fundo): #f0f8ff (Azul Suave)
+ * CORREÇÃO APLICADA: O .contact-body não usa mais display: flex.
+ */
+
+.contact-body {
+    /* Mantém a altura mínima e a fonte */
+    min-height: 100vh;
+    background-color: #f0f8ff; 
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    
+    /* Importante: Removidas as regras display: flex e align-items: center */
+    /* Garante que o conteúdo role normalmente após a nav */
+    padding-top: 0px; 
+}
+
+/* Classe customizada para usar a nova cor azul forte (#1c7ed6) */
+.text-gradient {
+    background: -webkit-linear-gradient(315deg, #34A89A 0%, #E87A5B 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.contact-card {
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    /* Garante que a borda arredondada se aplique a tudo */
+    overflow: hidden; 
+}
+
+/* Estilo para a Coluna de Informações de Contato (lateral) */
+.contact-info {
+    background-color: #1c7ed6; /* Novo Azul Forte */
+    color: #FFFFFF;
+    /* Faz a coluna de informações ocupar a altura total do card */
+    min-height: 100%;
+}
+
+.contact-info h2 {
+    font-weight: 700;
+}
+
+/* Estilo para o Título do Formulário */
+.title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #34495e; 
+}
+
+/* Estilo para o Botão de Envio */
+.btn-contact-submit {
+    background-color: #1c7ed6; /* Novo Azul Forte */
+    border-color: #1c7ed6;
+    color: #FFFFFF;
+    font-weight: 600;
+    padding: 10px 30px;
+    transition: background-color 0.3s;
+}
+
+.btn-contact-submit:hover {
+    background-color: #1669b7; 
+    border-color: #1669b7;
+}
+
+/* Media Query para telas menores (smartphones) */
+@media (max-width: 767px) {
+    .contact-info {
+        min-height: auto; 
+        /* Arredonda apenas o topo no celular */
+        border-radius: 15px 15px 0 0; 
+    }
+}

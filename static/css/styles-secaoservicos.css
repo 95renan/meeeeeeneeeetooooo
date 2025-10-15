@@ -1,0 +1,137 @@
+
+:root {
+    --primary-color: #2e6074; /* Um azul/verde mais escuro */
+    --secondary-color: #5bb39a; /* Um verde mais claro */
+    --text-color: #333;
+    --light-gray: #f8f8f8;
+    --medium-gray: #e0e0e0;
+    --white: #ffffff;
+}
+
+body {
+    font-family: 'Plus Jakarta Sans', sans-serif; /* Aplicando a fonte Jakarta */
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+.container2 {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0px;
+}
+
+h2, h3 {
+    color: var(--primary-color);
+    font-weight: 700; /* Um pouco mais forte para títulos */
+    margin-bottom: 15px;
+}
+
+p {
+    margin-bottom: 15px;
+}
+
+/* --- Botões --- */
+.btn-main {
+    display: inline-block;
+    padding: 12px 25px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+    text-align: center;
+
+    background-color: var(--secondary-color);
+    color: var(--white);
+    border: 2px solid var(--secondary-color);
+}
+.btn-main:hover {
+    background-color: #4a9e87; /* Tom um pouco mais escuro */
+}
+
+/* --- Seção de Serviços em Destaque --- */
+.services-highlight {
+    padding: 80px 0;
+    background-color: var(--light-gray);
+    text-align: center;
+}
+
+.services-highlight h2 {
+    font-size: 38px;
+    margin-bottom: 10px;
+}
+
+.services-highlight .section-description {
+    font-size: 18px;
+    color: #555;
+    margin-bottom: 40px;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.service-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    margin-bottom: 50px;
+}
+
+.service-item {
+    background-color: var(--white);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-align: center;
+}
+
+.service-item:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+}
+
+.service-item img {
+    width: 120px; /* Tamanho dos ícones */
+    height: 120px;
+    margin-bottom: 20px;
+    border-radius: 50%; /* Para os ícones Placeholder */
+}
+
+.service-item h3 {
+    font-size: 22px;
+    margin-bottom: 10px;
+    color: var(--primary-color);
+}
+
+.service-item p {
+    font-size: 16px;
+    color: #666;
+    margin: 0;
+}
+
+.text-center {
+    text-align: center;
+}
+
+/* --- Responsividade Básica --- */
+@media (max-width: 600px) {
+    .services-highlight h2 {
+        font-size: 30px;
+    }
+    .service-grid {
+        grid-template-columns: 1fr; /* Uma coluna em telas muito pequenas */
+    }
+}
+
+/* --- Responsividade Básica --- */
+@media (max-width: 600px) {
+    .services-highlight h2 {
+        font-size: 30px;
+    }
+    .service-grid {
+        grid-template-columns: 1fr; /* Uma coluna em telas muito pequenas */
+    }
+}

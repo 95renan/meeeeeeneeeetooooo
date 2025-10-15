@@ -1,0 +1,67 @@
+/*
+ * Estilos Exclusivos para a Tela de Cadastro do Meu Neto
+ * Fonte: Plus Jakarta Sans
+ * Cor Principal: #64C5B9 (Azul Suave/Teal)
+ */
+
+.cadastro-body {
+    display: flex;
+    align-items: flex-start; /* Alinha no topo, melhor para formulários longos */
+    justify-content: center;
+    min-height: 100vh;
+    /* Fundo azul suave */
+    background-color: #f0f8ff; 
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    padding: 40px 20px; /* Mais padding para formulários maiores */
+}
+
+.cadastro-card {
+    max-width: 500px; /* Um pouco mais largo que o login para acomodar mais campos */
+    width: 100%;
+    padding: 40px;
+    border-radius: 15px;
+    /* Sombra suave e agradável */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); 
+}
+
+/* Estilo para o título/h1 do cadastro */
+.logo-text {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #1c7ed6; 
+}
+
+/* Estilo para a imagem da logo (consistente com o login) */
+.cadastro-logo {
+    max-width: 150px; 
+    height: auto;
+    display: block; 
+    margin: 0 auto 10px auto; 
+}
+
+/* Estilo do Botão Primário (Consistente com a identidade do Meu Neto) */
+.btn-meuneto-soft {
+    background-color: #1c7ed6;
+    border-color: #1c7ed6;
+    color: #FFFFFF;
+    font-weight: 600;
+}
+
+.btn-meuneto-soft:hover {
+    background-color: #1c7ed6;
+    border-color: #1c7ed6;
+}
+
+/* Estilo para links de cadastro ou recuperação que usam a cor primária */
+.text-meuneto-soft {
+    color: #1c7ed6 !important;
+    text-decoration: none;
+}
+
+/* Garante que os títulos de seção fiquem com a cor do tema */
+.cadastro-card h5 {
+    color: #1c7ed6; /* Um tom de teal um pouco mais escuro para destaque */
+    font-weight: 600;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #d0ebff;
+}
