@@ -3,254 +3,268 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Como Funciona</title>
+<title>Meu Neto - Escolher Serviço</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet">
 
-<link rel="stylesheet" href="../static/css/styles-comofunciona.css">
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@100;200;300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet" />
-<!-- Bootstrap icons-->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" rel="stylesheet" />
-    <!-- Core theme CSS (includes Bootstrap)-->
-<link href="../static/css/styles.css" rel="stylesheet" />
-<link href="../static/css/styles-buscaidoso.css" rel="stylesheet" />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<link rel="stylesheet" href="../static/css/styles.css">
+<link rel="stylesheet" href="../static/css/styles-buscaidoso.css" />
 
 </head>
 
-<body>
-<!-- Barra de Navegação-->
+<body class="d-flex flex-column min-vh-100">
     <nav class="navbar navbar-expand-lg navbar-light bg-white py-3">
-                <div class="container px-5">
-                    <a class="navbar-brand" href="/">
-                    <span class="text-gradient fw-bolder text-primary">Meu Neto</span>
-                    </a>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="navbar-nav ms-auto mb-2 mb-lg-0 small fw-bolder">
-                            <li class="nav-item"><a class="nav-link" href="/">Início</a></li>
-                            <li class="nav-item"><a class="nav-link active" aria-current="page" href="/funciona">Como Funciona</a></li>
-                            <li class="nav-item"><a class="nav-link" href="/contato">Contato</a></li>
-                            <!--<li class="nav-item"><a class="nav-link" href="/login">Login</a></li>-->
-                        </ul>
-                    </div>
-                </div>
+        <div class="container px-5">
+            <a class="navbar-brand" href="/">
+            <span class="text-gradient fw-bolder text-primary">Meu Neto</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0 small fw-bolder">
+                    <li class="nav-item"><a class="nav-link" href="/">Início</a></li>
+                    <li class="nav-item"><a class="nav-link active" aria-current="page" href="/funciona">Como Funciona</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/contato">Contato</a></li>
+                </ul>
+            </div>
+        </div>
     </nav>
 
-    <main class="container">
-        <div class="busca-servico">
-            <label for="servico" class="label">Escolha um serviço:</label>
-            <select id="servico" class="select-servico">
-            <option value="">Selecione...</option>
-            <option value="jardinagem">Jardinagem</option>
-            <option value="pequenos-reparos">Pequenos Reparos</option>
-            <option value="companhia">Companhia</option>
-            </select>
-            <button class="btn-buscar">Buscar</button>
+    <header class="bg-light pt-5"> <div class="container px-5">
+            <div class="mb-4"> 
+                <a href="javascript:history.back()" class="btn btn-voltar-personalizado">
+                    <i class="bi bi-arrow-left"></i> Voltar
+                </a>
+            </div>
+            
+            <div class="text-center pb-5"> <h1 class="display-6 fw-bolder mb-3 text-primary">Qual serviço você precisa hoje?</h1>
+                <p class="lead text-muted mb-0">Selecione uma das opções abaixo e nós encontraremos um "Neto" qualificado para te ajudar. É simples, rápido e seguro!</p>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow-1 d-flex justify-content-center align-items-start pt-5"> <div class="container px-5"> <div class="busca-servico">
+                <label for="servico" class="label">Escolha um serviço:</label>
+                <select id="servico" class="select-servico">
+                    <option value="">Selecione...</option>
+                    <option value="jardinagem">Jardinagem</option>
+                    <option value="pequenos-reparos">Pequenos Reparos</option>
+                    <option value="companhia">Companhia</option>
+                    <option value="tecnologia">Ajuda Com Tecnologias/Aparelhos</option> 
+                    <option value="compras">Compras</option> 
+                    <option value="limpeza">Limpeza</option> 
+                </select>
+                <div>
+                    <a class="btn btn-buscar btn-lg px-5 py-3 me-sm-3 fs-6 fw-bolder " href="/resultado_busca_idoso"> Buscar </a>
+                </div>
+            </div>
         </div>
     </main>
 
+    <footer class="bg-white py-4 mt-auto">
+            <div class="container px-5">
+                <div class="row align-items-center justify-content-between flex-column flex-sm-row navbar2">
+                    <div class="col-auto"><div class="small m-0">Copyright &copy; Meu Neto 2025</div></div>
+                    <div class="col-auto">
+                        <!-- Scrollable modal -->
+                        <a class="small" href="#!" data-bs-toggle="modal" data-bs-target="#termosUsoModal">Termos de Uso</a>
+                        <span class="mx-1">&middot;</span>
+                        <a class="small" href="#!" data-bs-toggle="modal" data-bs-target="#privacidadeModal">Politica de Privacidade</a>
+                        <span class="mx-1">&middot;</span>
+                        <a class="small" href="#" data-bs-toggle="modal" data-bs-target="#contatoModal">Contato</a>
+                        <span class="mx-1">&middot;</span>
+                    </div>
+                </div>
+            </div>
+    </footer>
 
-<footer class="bg-white py-4 mt-auto">
-    <div class="container px-5">
-        <div class="row align-items-center justify-content-between flex-column flex-sm-row">
-            <div class="col-auto"><div class="small m-0">Copyright &copy; Meu Neto 2025</div></div>
-            <div class="col-auto">
-                <!-- Scrollable modal -->
-                <a class="small" href="#!" data-bs-toggle="modal" data-bs-target="#termosUsoModal">Termos de Uso</a>
-                <span class="mx-1">&middot;</span>
-                <a class="small" href="#!" data-bs-toggle="modal" data-bs-target="#privacidadeModal">Politica de Privacidade</a>
-                <span class="mx-1">&middot;</span>
-                <a class="small" href="#" data-bs-toggle="modal" data-bs-target="#contatoModal">Contato</a>
-                <span class="mx-1">&middot;</span>
+    <!-- Termos de Uso-->
+        <div class="modal fade" id="termosUsoModal" tabindex="-1" aria-labelledby="termosUsoModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-lg">
+        <div class="modal-content">
+            
+            <div class="modal-header">
+                <h5 class="modal-title" id="termosUsoModalLabel">Termos de Uso da Plataforma Meu Neto</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+            </div>
+            
+            <div class="modal-body">
+                <p>Estes Termos de Uso ("Termos") regem o uso da plataforma "Meu Neto" (a "Plataforma"), que conecta <strong>Usuários (Idosos e/ou Familiares)</strong> a <strong>Prestadores de Serviço (os "Netos")</strong> para a realização de tarefas e oferecimento de companhia e cuidados. Ao acessar e utilizar a Plataforma, você concorda com estes Termos.</p>
+
+                <h4>1. Aceitação dos Termos</h4>
+                <p>Ao criar uma conta ou utilizar qualquer serviço oferecido pelo Meu Neto, você declara ter lido, compreendido e aceitado integralmente estes Termos. Se não concordar com qualquer parte destes Termos, você não deve utilizar a Plataforma.</p>
+                
+                <h4>2. Sobre a Plataforma Meu Neto</h4>
+                <p>A Plataforma Meu Neto atua como um <strong>intermediário</strong> que facilita a conexão entre Usuários e Prestadores de Serviço de forma segura e transparente. O Meu Neto <strong>não</strong> emprega, supervisiona ou assume responsabilidade legal pelos serviços prestados pelos "Netos".</p>
+                
+                <h4>3. Responsabilidades do Prestador de Serviço ("Neto")</h4>
+                <p>3.1. Verificação: O Prestador de Serviço se submete aos processos de verificação de antecedentes e qualificação exigidos pelo Meu Neto.
+                3.2. Qualidade do Serviço: O Prestador de Serviço é o único responsável pela qualidade, pontualidade e execução adequada dos serviços contratados.
+                3.3. Vínculo: Fica expressamente estabelecido que não há vínculo empregatício, societário ou de qualquer natureza entre o Prestador de Serviço e a plataforma Meu Neto.
+                </p>
+                
+                <h4>4. Responsabilidades do Usuário (Idoso/Familiar)</h4>
+                <p>4.1. Uso Adequado: O Usuário se compromete a utilizar a Plataforma de forma ética e legal.
+                4.2. Pagamento: O Usuário é responsável por efetuar o pagamento integral e dentro do prazo acordado pelos serviços prestados pelo "Neto" através dos meios disponibilizados ou acordados na Plataforma.
+                4.3. Segurança do Local: O Usuário deve garantir um ambiente seguro e adequado para a realização dos serviços.
+                </p>
+
+                <h4>5. Privacidade e Dados Pessoais</h4>
+                <p>A Plataforma se compromete com a segurança e privacidade dos dados de seus usuários, conforme detalhado em nossa Política de Privacidade (disponível em [LINK PARA SUA POLÍTICA DE PRIVACIDADE]).</p>
+
+                <h4>6. Isenção de Responsabilidade</h4>
+                <p>O Meu Neto não se responsabiliza por:
+                <br>
+                a) Ações ou omissões dos Prestadores de Serviço ou dos Usuários.
+                <br>
+                b) Danos, acidentes ou prejuízos de qualquer natureza que possam ocorrer durante ou em decorrência da prestação de serviços.
+                <br>
+                c) Litígios ou disputas entre Usuários e Prestadores de Serviço.
+                </p>
+
+                <h4>7. Cancelamento e Suspensão</h4>
+                <p>O Meu Neto se reserva o direito de suspender ou encerrar a conta de qualquer Usuário ou Prestador de Serviço que viole estes Termos, que apresente conduta inadequada ou que coloque em risco a segurança e a integridade da comunidade.</p>
+
+                <h4>8. Lei Aplicável e Foro</h4>
+                <p>Estes Termos são regidos pelas leis da República Federativa do Brasil. As partes elegem o foro da Comarca de Rondonópolis-MT para dirimir quaisquer dúvidas ou litígios decorrentes destes Termos.</p>
+
+                <p class="text-muted small"><strong>Data da Última Atualização:</strong> 08 de Outubro de 2025</p>
+                
+            </div>
+            
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Fechar</button>
             </div>
         </div>
     </div>
-</footer>
-
-        <!-- Termos de Uso-->
-        <div class="modal fade" id="termosUsoModal" tabindex="-1" aria-labelledby="termosUsoModal" aria-hidden="true">
-          <div class="modal-dialog modal-dialog-scrollable modal-lg">
-              <div class="modal-content">
-                  
-                  <div class="modal-header">
-                      <h5 class="modal-title" id="termosUsoModalLabel">Termos de Uso da Plataforma Meu Neto</h5>
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
-                  </div>
-                  
-                  <div class="modal-body">
-                      <p>Estes Termos de Uso ("Termos") regem o uso da plataforma "Meu Neto" (a "Plataforma"), que conecta <strong>Usuários (Idosos e/ou Familiares)</strong> a <strong>Prestadores de Serviço (os "Netos")</strong> para a realização de tarefas e oferecimento de companhia e cuidados. Ao acessar e utilizar a Plataforma, você concorda com estes Termos.</p>
-      
-                      <h4>1. Aceitação dos Termos</h4>
-                      <p>Ao criar uma conta ou utilizar qualquer serviço oferecido pelo Meu Neto, você declara ter lido, compreendido e aceitado integralmente estes Termos. Se não concordar com qualquer parte destes Termos, você não deve utilizar a Plataforma.</p>
-                      
-                      <h4>2. Sobre a Plataforma Meu Neto</h4>
-                      <p>A Plataforma Meu Neto atua como um <strong>intermediário</strong> que facilita a conexão entre Usuários e Prestadores de Serviço de forma segura e transparente. O Meu Neto <strong>não</strong> emprega, supervisiona ou assume responsabilidade legal pelos serviços prestados pelos "Netos".</p>
-                      
-                      <h4>3. Responsabilidades do Prestador de Serviço ("Neto")</h4>
-                      <p>3.1. Verificação: O Prestador de Serviço se submete aos processos de verificação de antecedentes e qualificação exigidos pelo Meu Neto.
-                      3.2. Qualidade do Serviço: O Prestador de Serviço é o único responsável pela qualidade, pontualidade e execução adequada dos serviços contratados.
-                      3.3. Vínculo: Fica expressamente estabelecido que não há vínculo empregatício, societário ou de qualquer natureza entre o Prestador de Serviço e a plataforma Meu Neto.
-                      </p>
-                      
-                      <h4>4. Responsabilidades do Usuário (Idoso/Familiar)</h4>
-                      <p>4.1. Uso Adequado: O Usuário se compromete a utilizar a Plataforma de forma ética e legal.
-                      4.2. Pagamento: O Usuário é responsável por efetuar o pagamento integral e dentro do prazo acordado pelos serviços prestados pelo "Neto" através dos meios disponibilizados ou acordados na Plataforma.
-                      4.3. Segurança do Local: O Usuário deve garantir um ambiente seguro e adequado para a realização dos serviços.
-                      </p>
-      
-                      <h4>5. Privacidade e Dados Pessoais</h4>
-                      <p>A Plataforma se compromete com a segurança e privacidade dos dados de seus usuários, conforme detalhado em nossa Política de Privacidade (disponível em [LINK PARA SUA POLÍTICA DE PRIVACIDADE]).</p>
-      
-                      <h4>6. Isenção de Responsabilidade</h4>
-                      <p>O Meu Neto não se responsabiliza por:
-                      <br>
-                      a) Ações ou omissões dos Prestadores de Serviço ou dos Usuários.
-                      <br>
-                      b) Danos, acidentes ou prejuízos de qualquer natureza que possam ocorrer durante ou em decorrência da prestação de serviços.
-                      <br>
-                      c) Litígios ou disputas entre Usuários e Prestadores de Serviço.
-                      </p>
-      
-                      <h4>7. Cancelamento e Suspensão</h4>
-                      <p>O Meu Neto se reserva o direito de suspender ou encerrar a conta de qualquer Usuário ou Prestador de Serviço que viole estes Termos, que apresente conduta inadequada ou que coloque em risco a segurança e a integridade da comunidade.</p>
-      
-                      <h4>8. Lei Aplicável e Foro</h4>
-                      <p>Estes Termos são regidos pelas leis da República Federativa do Brasil. As partes elegem o foro da Comarca de Rondonópolis-MT para dirimir quaisquer dúvidas ou litígios decorrentes destes Termos.</p>
-      
-                      <p class="text-muted small"><strong>Data da Última Atualização:</strong> 08 de Outubro de 2025</p>
-                      
-                  </div>
-                  
-                  <div class="modal-footer">
-                      <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Fechar</button>
-                  </div>
-              </div>
-          </div>
         </div>
 
-    <!-- Politica de Privacidade-->
-            <div class="modal fade" id="privacidadeModal" tabindex="-1" aria-labelledby="privacidadeModal" aria-hidden="true">
-          <div class="modal-dialog modal-dialog-scrollable modal-lg">
-              <div class="modal-content">
-                  
-                  <div class="modal-header">
-                      <h5 class="modal-title" id="privacidadeModalLabel">Política de Privacidade da Plataforma Meu Neto</h5>
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
-                  </div>
-                  
-                  <div class="modal-body">
-                      <p>Esta Política de Privacidade descreve como a plataforma "Meu Neto" (a "Plataforma") coleta, utiliza, armazena e protege as informações dos <strong>Usuários (Idosos/Familiares)</strong> e dos <strong>Prestadores de Serviço ("Netos")</strong>. A sua privacidade é a nossa prioridade.</p>
-      
-                      <h4>1. Dados Coletados</h4>
-                      <p>Para viabilizar a conexão e garantir a segurança, coletamos os seguintes tipos de informações:</p>
-      
-                      <table class="table table-bordered table-striped">
-                          <thead>
-                              <tr>
-                                  <th>Categoria de Dados</th>
-                                  <th>Exemplos</th>
-                                  <th>Finalidade</th>
-                              </tr>
-                          </thead>
-                          <tbody>
-                              <tr>
-                                  <td><strong>Dados Cadastrais</strong></td>
-                                  <td>Nome, CPF, e-mail, telefone, endereço.</td>
-                                  <td>Identificação, comunicação e verificação de segurança.</td>
-                              </tr>
-                              <tr>
-                                  <td><strong>Dados de Perfil</strong></td>
-                                  <td>Idade, histórico de serviços (para Prestadores), necessidades de cuidado (para Usuários).</td>
-                                  <td>Conexão entre partes compatíveis.</td>
-                              </tr>
-                              <tr>
-                                  <td><strong>Dados de Pagamento</strong></td>
-                                  <td>Informações de transação (não armazenamos dados sensíveis de cartão, que são processados por terceiros seguros).</td>
-                                  <td>Processamento de pagamentos.</td>
-                              </tr>
-                              <tr>
-                                  <td><strong>Dados de Uso</strong></td>
-                                  <td>Data e hora de acesso, IP, páginas visitadas.</td>
-                                  <td>Melhoria da Plataforma e segurança contra fraudes.</td>
-                              </tr>
-                          </tbody>
-                      </table>
-      
-                      <h4>2. Uso das Informações Pessoais</h4>
-                      <p>Os dados coletados são usados exclusivamente para os seguintes fins:<br>
-                      a) <strong>Conexão:</strong> Emparelhar Usuários e Prestadores de Serviço.<br>
-                      b) <strong>Segurança:</strong> Verificar a identidade dos Prestadores de Serviço e garantir um ambiente seguro.<br>
-                      c) <strong>Comunicação:</strong> Enviar notificações sobre agendamentos, pagamentos e atualizações.<br>
-                      d) <strong>Melhoria do Serviço:</strong> Analisar tendências de uso para aprimorar a experiência na Plataforma.</p>
-      
-                      <h4>3. Compartilhamento de Informações</h4>
-                      <p>As informações são compartilhadas apenas quando estritamente necessário:<br>
-                      a) <strong>Entre Partes Conectadas:</strong> Compartilhamos nome e informações de contato (como telefone) entre o Usuário e o Prestador de Serviço após a confirmação de um agendamento.<br>
-                      b) <strong>Fornecedores de Serviço:</strong> Com empresas de pagamento (para processar transações) ou ferramentas de análise e segurança.<br>
-                      c) <strong>Obrigação Legal:</strong> Quando exigido por lei ou ordem judicial.</p>
-      
-                      <h4>4. Direitos do Titular de Dados (LGPD)</h4>
-                      <p>Você pode exercer, a qualquer momento, os direitos previstos na LGPD, incluindo o acesso aos seus dados, correção de dados incompletos, e a exclusão de dados desnecessários, entrando em contato através do [E-MAIL DE CONTATO].</p>
-      
-                      <h4>5. Segurança da Informação</h4>
-                      <p>O Meu Neto emprega medidas de segurança técnicas e administrativas para proteger os dados pessoais de acessos não autorizados e situações acidentais. No entanto, nenhum sistema de segurança é totalmente infalível.</p>
-      
-                      <p class="text-muted small"><strong>Data da Última Atualização:</strong> [INSERIR DATA ATUAL]</p>
-                      
-                      </div>
-                  
-                  <div class="modal-footer">
-                      <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Fechar</button>
-                  </div>
-              </div>
-          </div>
+<!-- Politica de Privacidade-->
+        <div class="modal fade" id="privacidadeModal" tabindex="-1" aria-labelledby="privacidadeModal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-lg">
+        <div class="modal-content">
+            
+            <div class="modal-header">
+                <h5 class="modal-title" id="privacidadeModalLabel">Política de Privacidade da Plataforma Meu Neto</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
             </div>
+            
+            <div class="modal-body">
+                <p>Esta Política de Privacidade descreve como a plataforma "Meu Neto" (a "Plataforma") coleta, utiliza, armazena e protege as informações dos <strong>Usuários (Idosos/Familiares)</strong> e dos <strong>Prestadores de Serviço ("Netos")</strong>. A sua privacidade é a nossa prioridade.</p>
 
-    <!-- Contato -->
-            <div class="modal fade" id="contatoModal" tabindex="-1" aria-labelledby="contatoModal" aria-hidden="true">
-          <div class="modal-dialog modal-dialog-centered">
-              <div class="modal-content">
-                  
-                  <div class="modal-header">
-                      <h5 class="modal-title" id="contatoModalLabel">Entre em Contato com Meu Neto</h5>
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
-                  </div>
-                  
-                  <div class="modal-body">
-                      <form id="contactForm">
-                          <p class="text-muted small">Preencha o formulário abaixo e responderemos o mais breve possível.</p>
-                          
-                          <div class="mb-3">
-                              <label for="contactName" class="form-label">Seu Nome</label>
-                              <input type="text" class="form-control" id="contactName" required>
-                          </div>
-                          
-                          <div class="mb-3">
-                              <label for="contactEmail" class="form-label">Seu Email</label>
-                              <input type="email" class="form-control" id="contactEmail" required>
-                          </div>
-                          
-                          <div class="mb-3">
-                              <label for="contactMessage" class="form-label">Mensagem</label>
-                              <textarea class="form-control" id="contactMessage" rows="4" required></textarea>
-                          </div>
-                          
-                          <div class="form-text small">
-                              Ao enviar, você concorda com nossa <a href="#" data-bs-toggle="modal" data-bs-target="#privacidadeModal">Política de Privacidade</a>.
-                          </div>
-      
-                      </form>
-                  </div>
-                  
-                  <div class="modal-footer">
-                      <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cancelar</button>
-                      <button type="submit" class="btn btn-primary" form="contactForm">Enviar Mensagem</button>
-                  </div>
-              </div>
-          </div>
+                <h4>1. Dados Coletados</h4>
+                <p>Para viabilizar a conexão e garantir a segurança, coletamos os seguintes tipos de informações:</p>
+
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>Categoria de Dados</th>
+                            <th>Exemplos</th>
+                            <th>Finalidade</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Dados Cadastrais</strong></td>
+                            <td>Nome, CPF, e-mail, telefone, endereço.</td>
+                            <td>Identificação, comunicação e verificação de segurança.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Dados de Perfil</strong></td>
+                            <td>Idade, histórico de serviços (para Prestadores), necessidades de cuidado (para Usuários).</td>
+                            <td>Conexão entre partes compatíveis.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Dados de Pagamento</strong></td>
+                            <td>Informações de transação (não armazenamos dados sensíveis de cartão, que são processados por terceiros seguros).</td>
+                            <td>Processamento de pagamentos.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Dados de Uso</strong></td>
+                            <td>Data e hora de acesso, IP, páginas visitadas.</td>
+                            <td>Melhoria da Plataforma e segurança contra fraudes.</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h4>2. Uso das Informações Pessoais</h4>
+                <p>Os dados coletados são usados exclusivamente para os seguintes fins:<br>
+                a) <strong>Conexão:</strong> Emparelhar Usuários e Prestadores de Serviço.<br>
+                b) <strong>Segurança:</strong> Verificar a identidade dos Prestadores de Serviço e garantir um ambiente seguro.<br>
+                c) <strong>Comunicação:</strong> Enviar notificações sobre agendamentos, pagamentos e atualizações.<br>
+                d) <strong>Melhoria do Serviço:</strong> Analisar tendências de uso para aprimorar a experiência na Plataforma.</p>
+
+                <h4>3. Compartilhamento de Informações</h4>
+                <p>As informações são compartilhadas apenas quando estritamente necessário:<br>
+                a) <strong>Entre Partes Conectadas:</strong> Compartilhamos nome e informações de contato (como telefone) entre o Usuário e o Prestador de Serviço após a confirmação de um agendamento.<br>
+                b) <strong>Fornecedores de Serviço:</strong> Com empresas de pagamento (para processar transações) ou ferramentas de análise e segurança.<br>
+                c) <strong>Obrigação Legal:</strong> Quando exigido por lei ou ordem judicial.</p>
+
+                <h4>4. Direitos do Titular de Dados (LGPD)</h4>
+                <p>Você pode exercer, a qualquer momento, os direitos previstos na LGPD, incluindo o acesso aos seus dados, correção de dados incompletos, e a exclusão de dados desnecessários, entrando em contato através do [E-MAIL DE CONTATO].</p>
+
+                <h4>5. Segurança da Informação</h4>
+                <p>O Meu Neto emprega medidas de segurança técnicas e administrativas para proteger os dados pessoais de acessos não autorizados e situações acidentais. No entanto, nenhum sistema de segurança é totalmente infalível.</p>
+
+                <p class="text-muted small"><strong>Data da Última Atualização:</strong> [INSERIR DATA ATUAL]</p>
+                
+                </div>
+            
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Fechar</button>
             </div>
+        </div>
+    </div>
+        </div>
+
+<!-- Contato -->
+        <div class="modal fade" id="contatoModal" tabindex="-1" aria-labelledby="contatoModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            
+            <div class="modal-header">
+                <h5 class="modal-title" id="contatoModalLabel">Entre em Contato com Meu Neto</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+            </div>
+            
+            <div class="modal-body">
+                <form id="contactForm">
+                    <p class="text-muted small">Preencha o formulário abaixo e responderemos o mais breve possível.</p>
+                    
+                    <div class="mb-3">
+                        <label for="contactName" class="form-label">Seu Nome</label>
+                        <input type="text" class="form-control" id="contactName" required>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="contactEmail" class="form-label">Seu Email</label>
+                        <input type="email" class="form-control" id="contactEmail" required>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="contactMessage" class="form-label">Mensagem</label>
+                        <textarea class="form-control" id="contactMessage" rows="4" required></textarea>
+                    </div>
+                    
+                    <div class="form-text small">
+                        Ao enviar, você concorda com nossa <a href="#" data-bs-toggle="modal" data-bs-target="#privacidadeModal">Política de Privacidade</a>.
+                    </div>
+
+                </form>
+            </div>
+            
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="submit" class="btn btn-primary" form="contactForm">Enviar Mensagem</button>
+            </div>
+        </div>
+    </div>
+        </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 </html>

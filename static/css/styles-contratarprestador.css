@@ -1,0 +1,62 @@
+/* === LAYOUT FUNDAMENTAL (GARANTINDO O FOOTER) === */
+html {
+    height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #f8f9fa; /* Fundo claro para o corpo */
+    font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+/* Regra para empurrar o footer */
+.principal-content {
+    flex-grow: 1; 
+}
+
+/* === ESTILOS GERAIS DO PERFIL === */
+.perfil-card {
+    max-width: 1000px;
+    margin: 30px auto; /* Centraliza o cartão de perfil */
+    border-radius: 15px;
+}
+
+.perfil-foto {
+    width: 250px;
+    height: 250px;
+    object-fit: cover; /* Garante que a imagem preencha o círculo sem distorção */
+    border: 5px solid #28a745; /* Borda verde destacada */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Lista de Detalhes */
+.list-group-item {
+    border-color: #e9ecef; /* Linhas suaves entre os itens */
+}
+
+/* Ícone de estrela */
+.star-icon {
+    color: #ffd700; /* Dourado */
+    font-weight: 900;
+}
+
+/* Botão de Contratação */
+.contratar-btn {
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+/* Caixa de Descrição */
+.desc-box {
+    background-color: #f8fff8; /* Fundo levemente verde/claro para destaque */
+    border-color: #28a745 !important;
+}
+
+/* Garante o alinhamento correto na coluna esquerda em telas grandes */
+@media (min-width: 992px) {
+    .border-end {
+        border-right: 1px solid #dee2e6 !important;
+    }
+}

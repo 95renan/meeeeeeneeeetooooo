@@ -109,13 +109,6 @@ body {
 /* Parte 2 */
 
 /* ===== Estilos gerais ===== */
-body {
-  font-family: "Nunito", sans-serif;
-  background-color: #f9fafb;
-  margin: 0;
-  padding: 0;
-  color: #333;
-}
 
 /* ===== Cabeçalho ===== */
 .cabecalho {
@@ -136,7 +129,7 @@ body {
 }
 
 .btn-voltar {
-  background-color: white;
+  background-color: rgb(255, 255, 255);
   color: #4a90e2;
   border: none;
   padding: 8px 15px;
@@ -151,12 +144,7 @@ body {
 }
 
 /* ===== Corpo da página ===== */
-.container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: calc(100vh - 70px);
-}
+
 
 .busca-servico {
   background: white;
@@ -164,8 +152,11 @@ body {
   border-radius: 12px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
   display: flex;
-  align-items: center;
-  gap: 10px;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 15px;
+  max-width: 320px;
+  margin: 0 auto;
 }
 
 .label {
@@ -190,6 +181,7 @@ body {
   font-size: 1rem;
   cursor: pointer;
   transition: background 0.3s;
+  width: 100%;
 }
 
 .btn-buscar:hover {
@@ -213,3 +205,47 @@ body {
     width: 100%;
   }
 }
+
+header .mb-4 {
+  display: flex;
+  justify-content: flex-end; /* botão à direita */
+}
+
+main {
+  display: flex;
+  justify-content: center;
+  align-items: center; /* centraliza verticalmente */
+  min-height: 60vh; /* garante espaço para o conteúdo ficar no meio */
+  padding-top: 0 !important; /* remove o espaçamento superior do Bootstrap */
+}
+
+/* Força o botão "Voltar" para o canto direito do cabeçalho */
+header .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-direction: column;
+}
+
+header .mb-4 {
+  align-self: flex-end; /* Move o botão pra direita */
+}
+
+header .text-center {
+  width: 100%;
+  text-align: center;
+}
+
+.btn-voltar-personalizado {
+  border: 2px solid #4a90e2;
+  color: #4a90e2;
+  background-color: transparent;
+  transition: 0.3s;
+}
+
+.btn-voltar-personalizado:hover {
+  background-color: #4a90e2;
+  color: white;
+}
+
+
