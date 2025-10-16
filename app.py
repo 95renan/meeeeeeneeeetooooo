@@ -26,6 +26,18 @@ def cadastro_idoso():
 def cadastro_prestador():
     return render_template('cadastro_prestador.html')
 
+@app.route('/busca_idoso')
+def busca_idoso():
+    return render_template('busca_idoso.html')
+
+@app.route('/resultado_busca_idoso')
+def resultado_busca_idoso():
+    return render_template('resultado_busca_idoso.html')
+
+@app.route('/contratar_prestador')
+def contratar_prestador():
+    return render_template('contratar_prestador.html')
+
 
 if __name__ == '__main__':
     app.run(debug=True)

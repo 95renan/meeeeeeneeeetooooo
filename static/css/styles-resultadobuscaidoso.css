@@ -1,0 +1,88 @@
+/* Estilos para a Navbar */
+.custom-navbar {
+    border-bottom: 3px solid #28a745; /* Linha verde sutil na base */
+}
+
+/* Estilos para o Corpo da Página */
+body {
+    background-color: #f8f9fa; /* Fundo cinza claro */
+    font-family: 'Plus Jakarta Sans', sans-serif; /* Aplicando a fonte Jakarta */
+}
+
+/* Estilos para os Cards */
+.custom-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transição suave */
+    border-radius: 10px; /* Bordas arredondadas */
+    overflow: hidden; /* Garante que a imagem se ajuste ao card */
+}
+
+/* Efeito de hover (passar o mouse) no Card */
+.custom-card:hover {
+    transform: translateY(-5px); /* Levanta um pouco o card */
+    box-shadow: 0 1rem 3rem rgba(0,0,0,.175) !important; /* Sombra mais forte */
+}
+
+/* ESTA REGRA TEM ALTA PRIORIDADE */
+/* Estamos dizendo: para a imagem .profile-thumb que está dentro de um .custom-card, 
+   aplique estas regras. */
+
+.custom-card img.profile-thumb {
+    /* 1. SEU NOVO TAMANHO E FORMA */
+    width: 200px !important;    /* Adicionando !important */
+    height: 200px !important;   /* Adicionando !important */
+    border-radius: 50% !important;
+    object-fit: cover; 
+    
+    /* 2. CENTRALIZAÇÃO HORIZONTAL */
+    display: block !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    
+    /* 3. ESPAÇAMENTO */
+    margin-bottom: 20px !important;
+}
+
+/* Estilo para a lista de detalhes no card (para remover bordas desnecessárias) */
+.list-group-item {
+    padding-left: 0;
+}
+
+/* Ícone de estrela */
+.star-icon {
+    color: #ffd700; /* Cor dourada para a estrela */
+    font-weight: 900;
+}
+
+/* Ajuste do rodapé do card */
+.card-footer {
+    background-color: white; /* Garante fundo branco para o botão */
+    border-top: none;
+    padding-top: 0.5rem;
+}
+
+/* 1. Garante que o corpo ocupe 100% da altura da viewport */
+html {
+    height: 100%;
+}
+
+/* 2. Habilita o Flexbox e a direção em coluna */
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* min-height de 100% da altura da viewport */
+    background-color: #f8f9fa; /* Mantendo o fundo cinza claro */
+}
+
+/* 3. Empurra o rodapé para baixo */
+/* Isso faz com que todo o conteúdo entre a navbar e o footer cresça e ocupe o espaço extra */
+.container {
+    flex-grow: 1; 
+    /* Esta linha é crucial. No seu HTML atual, o corpo principal 
+       dos resultados (que tem a classe .container) precisa ser o item que cresce. */
+}
+
+/* --- (Estilos antigos abaixo) --- */
+.custom-navbar {
+    border-bottom: 3px solid #28a745;
+}
+/* ... etc. */
