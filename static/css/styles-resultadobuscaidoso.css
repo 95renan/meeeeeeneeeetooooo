@@ -28,8 +28,8 @@ body {
 
 .custom-card img.profile-thumb {
     /* 1. SEU NOVO TAMANHO E FORMA */
-    width: 200px !important;    /* Adicionando !important */
-    height: 200px !important;   /* Adicionando !important */
+    width: 500px !important;    /* Adicionando !important */
+    height: 500px !important;   /* Adicionando !important */
     border-radius: 50% !important;
     object-fit: cover; 
     
@@ -40,6 +40,15 @@ body {
     
     /* 3. ESPAÇAMENTO */
     margin-bottom: 20px !important;
+}
+
+.minha-formatacao{
+    width: 200px !important;
+    height: 200px !important;
+    border-radius: 80% !important;
+    object-fit: cover !important;
+    display: block !important;
+    margin: 0 auto !important;
 }
 
 /* Estilo para a lista de detalhes no card (para remover bordas desnecessárias) */

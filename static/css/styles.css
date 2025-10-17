@@ -4204,7 +4204,7 @@ textarea.form-control-lg {
 }
 
 .card-body {
-  flex: 1 1 auto;
+  /*flex: 1 1 auto;*/
   padding: var(--bs-card-spacer-y) var(--bs-card-spacer-x);
   color: var(--bs-card-color);
 }
@@ -11779,5 +11779,26 @@ html {
 
 /* Algumas ediçoes a mais */
 
-/* Importação da fonte Plus Jakarta Sans */
+/* Sticky Footer - mantém o footer no final da página */
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* O conteúdo principal deve crescer para empurrar o footer para baixo */
+main, .main-content {
+  flex: 1 0 auto;
+}
+
+/* O footer deve ficar sempre no final */
+footer {
+  flex-shrink: 0;
+  margin-top: auto;
+}
 
