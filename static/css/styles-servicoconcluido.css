@@ -1,0 +1,76 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600&display=swap');
+
+body {
+font-family: 'Plus Jakarta Sans', sans-serif;
+background-color: #f8f9fa;
+margin: 0;
+padding: 0;
+display: flex;
+flex-direction: column;
+min-height: 100vh;
+}
+
+.topo {
+background-color: #1c7ed6;
+color: white;
+text-align: center;
+padding: 20px;
+}
+
+.conteudo {
+flex: 1;
+display: flex;
+justify-content: center;
+align-items: center;
+}
+
+.confirmacao {
+background-color: white;
+text-align: center;
+padding: 40px 60px;
+border-radius: 16px;
+box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+max-width: 500px;
+}
+
+.icone {
+font-size: 60px;
+margin-bottom: 20px;
+color: #1c7ed6;
+}
+
+.confirmacao h2 {
+color: #1c7ed6;
+margin-bottom: 10px;
+}
+
+.confirmacao p {
+color: #333;
+font-size: 16px;
+margin-bottom: 30px;
+line-height: 1.5;
+}
+
+.btn-voltar {
+display: inline-block;
+background-color: #1c7ed6;
+color: white;
+text-decoration: none;
+padding: 12px 28px;
+border-radius: 8px;
+font-size: 16px;
+font-weight: 600;
+transition: background-color 0.3s;
+}
+
+.btn-voltar:hover {
+background-color: #1864ab;
+}
+
+.rodape {
+text-align: center;
+padding: 15px;
+background-color: #f1f3f5;
+color: #555;
+font-size: 14px;
+}

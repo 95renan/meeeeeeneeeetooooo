@@ -10,6 +10,10 @@ def home():
 def login():
     return render_template('login.html')
 
+@app.route('/loginprestador')
+def login_prestador():
+    return render_template('login_prestador.html')
+
 @app.route('/funciona')
 def funciona():
     return render_template('como_funciona.html')
@@ -37,6 +41,18 @@ def resultado_busca_idoso():
 @app.route('/contratar_prestador')
 def contratar_prestador():
     return render_template('contratar_prestador.html')
+
+@app.route('/inicial_prestador')
+def inicial_prestador():
+    return render_template('inicial_prestador.html')
+
+@app.route('/servico_aceito')
+def servico_aceito():
+    return render_template('servico_aceito.html')
+
+@app.route('/servico_concluido') 
+def servico_concluido():
+    return render_template('servico_concluido.html')
 
 
 if __name__ == '__main__':
