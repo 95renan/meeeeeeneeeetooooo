@@ -36,6 +36,19 @@
                         <input type="email" class="form-control" id="emailInput" placeholder="seu.email@exemplo.com" required>
                     </div>
 
+                    <div class="mb-3">
+                        <label for="cpfInput" class="form-label">CPF</label>
+                        <input 
+                            type="text" 
+                            class="form-control" 
+                            id="cpfInput" 
+                            placeholder="000.000.000-00" 
+                            required 
+                            maxlength="14"
+                            oninput="this.value = this.value.replace(/[^0-9. -]/g, '').slice(0, 14)">
+                    </div>
+                    
+
                     <div class="mb-4">
                         <label for="phoneInput" class="form-label">Telefone (Somente Números)</label>
                         <input 
@@ -102,6 +115,13 @@
                             <option value="outro">Outro Familiar / Cuidador</option>
                         </select>
                     </div>
+
+                    <div class="mb-4">
+                        <label for="fotoPerfil" class="form-label">Envie uma foto de perfil</label>
+                        <input type="file" class="form-control" id="fotoPerfil" accept="image/*">
+                        <div class="form-text">Formatos aceitos: JPG, PNG ou JPEG.</div>
+                    </div>
+                    
 
                     <div class="mb-4 form-check">
                         <input type="checkbox" class="form-check-input" id="termsCheck" required>

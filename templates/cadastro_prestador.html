@@ -60,6 +60,40 @@
                         </div>
                     </div>
 
+                    <h5 class="mb-3">Endereço</h5>
+
+                    <div class="mb-3">
+                        <label for="cepInput" class="form-label">CEP</label>
+                        <input type="text" class="form-control" id="cepInput" placeholder="00000-000" required>
+                    </div>
+                    
+                    <div class="row mb-3">
+                        <div class="col-md-9">
+                            <label for="streetInput" class="form-label">Rua/Avenida</label>
+                            <input type="text" class="form-control" id="streetInput" placeholder="Ex: Rua das Flores" required>
+                        </div>
+                        <div class="col-md-3">
+                            <label for="numberInput" class="form-label">Número</label>
+                            <input type="text" class="form-control" id="numberInput" placeholder="123" required>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="neighborhoodInput" class="form-label">Bairro</label>
+                        <input type="text" class="form-control" id="neighborhoodInput" placeholder="Ex: Centro" required>
+                    </div>
+                    
+                    <div class="row mb-4">
+                        <div class="col-md-8">
+                            <label for="cityInput" class="form-label">Cidade</label>
+                            <input type="text" class="form-control" id="cityInput" placeholder="Ex: São Paulo" required>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="stateInput" class="form-label">Estado</label>
+                            <input type="text" class="form-control" id="stateInput" placeholder="Ex: SP" maxlength="2" required>
+                        </div>
+                    </div>
+
                     <div class="mb-4">
                         <label for="passwordInput" class="form-label">Crie uma Senha</label>
                         <input type="password" class="form-control" id="passwordInput" required>
@@ -94,6 +128,12 @@
                         <div class="form-text">Isso é usado apenas para verificação de segurança.</div>
                     </div>
 
+                    <div class="mb-4">
+                        <label for="fotoPerfil" class="form-label">Envie uma foto de perfil</label>
+                        <input type="file" class="form-control" id="fotoPerfil" accept="image/*">
+                        <div class="form-text">Formatos aceitos: JPG, PNG ou JPEG.</div>
+                    </div>
+                    
                     <div class="mb-4 form-check">
                         <input type="checkbox" class="form-check-input" id="termsCheck" required>
                         <label class="form-check-label small" for="termsCheck">
