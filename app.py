@@ -104,16 +104,16 @@ def home():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        login = (request.form.get('login') or '').strip()
+        cpf = (request.form.get('cpf') or '').strip()
         senha = (request.form.get('senha') or '').strip()
 
         # Verifica se os campos foram preenchidos
-        if not login or not senha:
+        if not cpf or not senha:
             flash('Informe login e senha.', 'warning')
             return redirect(url_for('login'))
 
         # Verifica se o usuário existe (usando o campo email como login)
-        user = Idoso.query.filter_by(email=login).first()
+        user = Idoso.query.filter_by(cpf=cpf).first()
 
         if not user or user.senha != senha:
             flash('Login ou senha inválidos.', 'danger')
