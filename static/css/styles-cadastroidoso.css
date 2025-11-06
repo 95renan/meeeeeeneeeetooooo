@@ -67,3 +67,21 @@
     padding-bottom: 5px;
     border-bottom: 1px solid #d0ebff;
 }
+
+/* Campo de upload de imagem */
+#fotoPerfil {
+    border: 2px dashed #1c7ed6;
+    background-color: #f8faff;
+    padding: 10px;
+    transition: 0.3s ease;
+}
+
+#fotoPerfil:hover {
+    background-color: #e7f5ff;
+    border-color: #1864ab;
+}
+
+.form-text {
+    color: #6c757d;
+    font-size: 0.9em;
+}
