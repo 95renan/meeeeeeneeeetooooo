@@ -26,6 +26,7 @@ class Idoso(db.Model):
     idIdoso = db.Column(db.Integer, primary_key=True, unique=True, autoincrement=True)
     cpf = db.Column(db.String(15), unique=True)
     nome = db.Column(db.String(100))
+    login = db.Column(db.String(50), unique=True, nullable=False)
     email = db.Column(db.String(100))
     senha = db.Column(db.String(50))
     telefone = db.Column(db.String(15))
@@ -39,7 +40,7 @@ class Idoso(db.Model):
     endCIDADE = db.Column(db.String(100))
     endUF = db.Column(db.String(100))
     criadoEm = db.Column(db.DateTime, nullable=False, server_default=func.now())
-
+    
 
 # ------------------------------
 # Rotas
@@ -51,16 +52,22 @@ def cadastrarIdoso():
     email = (request.form.get('email') or '').strip()
     senha = (request.form.get('password') or '').strip()
     telefone = (request.form.get('fone') or '').strip()
+    login = (request.form.get('login') or '').strip()
     
     nascimento_str = (request.form.get('nasc') or '').strip()
     nascimento = datetime.strptime(nascimento_str, "%Y-%m-%d").date() if nascimento_str else None
-
+    
     endCEP = (request.form.get('cep') or '').strip()
     endNUMERO = int(request.form.get('numero') or 0)
     endRUA = (request.form.get('rua') or '').strip()
     endBAIRRO = (request.form.get('bairro') or '').strip()
     endCIDADE = (request.form.get('cidade') or '').strip()
     endUF = (request.form.get('uf') or '').strip()
+
+    login_existente = Idoso.query.filter_by(login=login).first()
+    if login_existente:
+        flash('Este login já está em uso. Escolha outro nome de usuário.', 'warning')
+        return redirect(url_for('cadastro_idoso'))
 
     try:
         u = Idoso(
@@ -69,6 +76,7 @@ def cadastrarIdoso():
             email=email or None,
             senha=senha,
             telefone=telefone or None,
+            login=login,
             nascimento=nascimento,
             endCEP=endCEP,
             endNUMERO=endNUMERO,
@@ -84,7 +92,7 @@ def cadastrarIdoso():
 
     except IntegrityError:
         db.session.rollback()
-        flash('Usuário já cadastrado com este CPF ou e-mail.', 'danger')
+        flash('Usuário já cadastrado com este login ou e-mail.', 'danger')
         return redirect(url_for('home'))
 
     except Exception as e:
@@ -92,6 +100,42 @@ def cadastrarIdoso():
         flash(f'Erro ao cadastrar: {str(e)}', 'danger')
         return redirect(url_for('home'))
 
+@app.route('/login', methods=['GET'])
+def login():
+    return render_template('login.html')
+
+
+@app.route('/login/idoso', methods=['POST'])
+def login_idoso():
+    login = (request.form.get('login') or '').strip()
+    senha = (request.form.get('senha') or '').strip()
+
+    # Verifica se os campos foram preenchidos
+    if not login or not senha:
+        flash('Por favor, informe seu login e senha.', 'warning')
+        return redirect(url_for('login'))  # rota da página de login (GET)
+
+    # Busca o idoso pelo nome de login
+    user = Idoso.query.filter_by(login=login).first()
+
+    # Verifica se o usuário existe e se a senha está correta
+    if not user or user.senha != senha:
+        flash('Login ou senha incorretos. Tente novamente.', 'danger')
+        return redirect(url_for('login'))
+
+    # Cria a sessão e redireciona
+    session['usuario_id'] = user.idIdoso
+    session['usuario_nome'] = user.nome
+    flash(f'Bem-vindo(a), {user.nome}!', 'success')
+    return redirect(url_for('busca_idoso'))
+
+# Rota que realiza o logout do usuário
+@app.route('/logout', methods=['GET'])
+def logout():
+    # Destruição da sessão
+    session.pop('usuario_id', None)
+    flash('Você saiu da sessão.', 'info')
+    return redirect(url_for('home'))
 
 # ------------------------------
 # Páginas principais
@@ -100,33 +144,6 @@ def cadastrarIdoso():
 @app.route('/index')
 def home():
     return render_template('index.html')
-
-@app.route('/login', methods=['GET', 'POST'])
-def login():
-    if request.method == 'POST':
-        cpf = (request.form.get('cpf') or '').strip()
-        senha = (request.form.get('senha') or '').strip()
-
-        # Verifica se os campos foram preenchidos
-        if not cpf or not senha:
-            flash('Informe login e senha.', 'warning')
-            return redirect(url_for('login'))
-
-        # Verifica se o usuário existe (usando o campo email como login)
-        user = Idoso.query.filter_by(cpf=cpf).first()
-
-        if not user or user.senha != senha:
-            flash('Login ou senha inválidos.', 'danger')
-            return redirect(url_for('login'))
-
-        # Cria sessão e redireciona
-        session['usuario_id'] = user.idIdoso
-        flash(f'Bem-vindo(a), {user.nome}!', 'success')
-        return redirect(url_for('home'))
-
-    # Se for GET, apenas renderiza a página
-    return render_template('login.html')
-
 
 @app.route('/loginprestador')
 def login_prestador():

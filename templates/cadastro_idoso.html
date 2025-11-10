@@ -75,15 +75,36 @@
                             oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 15)">
                         <div class="form-text">Máximo de 15 dígitos.</div>
                     </div>
+
+                    <div class="mb-3">
+                        <label for="loginInput" class="form-label">Crie um Login</label>
+                        <input type="text" class="form-control" id="loginInput" name="login" placeholder="Ex: mariasilva123" required>
+                        <div class="form-text">Use um nome fácil de lembrar. Será seu login no sistema.</div>
+                    </div>
                     
-                    <div class="mb-4">
+                    <div class="mb-3 position-relative">
                         <label for="passwordInput" class="form-label">Crie uma Senha</label>
-                        <input type="password" class="form-control" id="passwordInput" name="password" required>
+                        <div class="input-group">
+                            <input type="password" class="form-control" id="passwordInput" name="password" required>
+                            <button class="btn btn-outline-secondary" type="button" id="togglePassword">Mostrar</button>
+                        </div>
                     </div>
-                    <div class="mb-4">
-                        <label for="passwordInput" class="form-label">Repita a Senha</label>
-                        <input type="password" class="form-control" id="passwordInput" name="password" required>
+
+                    <div class="mb-4 position-relative">
+                        <label for="confirmPassword" class="form-label">Repita a Senha</label>
+                        <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" required>
                     </div>
+
+                    <script>
+                        const togglePassword = document.querySelector('#togglePassword');
+                        const passwordInput = document.querySelector('#passwordInput');
+
+                        togglePassword.addEventListener('click', () => {
+                            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                            passwordInput.setAttribute('type', type);
+                            togglePassword.textContent = type === 'password' ? 'Mostrar' : 'Ocultar';
+                        });
+                    </script>
                     
                     <h5 class="mb-3">Endereço e Detalhes do Idoso</h5>
 

@@ -85,3 +85,28 @@
     color: #6c757d;
     font-size: 0.9em;
 }
+
+/* Campo de login e senha */
+#loginInput, #passwordInput, #confirmPassword {
+    border: 2px solid #dee2e6;
+    border-radius: 6px;
+    padding: 10px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    transition: 0.3s;
+}
+
+#loginInput:focus, #passwordInput:focus, #confirmPassword:focus {
+    border-color: #1c7ed6;
+    box-shadow: 0 0 4px rgba(28, 126, 214, 0.3);
+}
+
+#togglePassword {
+    background-color: #1c7ed6;
+    color: white;
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+#togglePassword:hover {
+    background-color: #155fa8;
+}
