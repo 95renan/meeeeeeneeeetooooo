@@ -28,24 +28,24 @@
                     
                     <div class="mb-3">
                         <label for="fullName" class="form-label">Nome Completo</label>
-                        <input type="text" class="form-control" id="fullName" placeholder="Ex: João Pereira" required>
+                        <input type="text" class="form-control" id="fullName" name="nome" placeholder="Ex: João Pereira" required>
                     </div>
 
                     <div class="row mb-4">
                         <div class="col-md-6 mb-3 mb-md-0">
                             <label for="cpfInput" class="form-label">CPF (Apenas Números)</label>
-                            <input type="tel" class="form-control" id="cpfInput" required maxlength="11" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+                            <input type="tel" class="form-control" id="cpfInput" name="cpf" required maxlength="11" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
                         </div>
                         <div class="col-md-6">
                             <label for="dobInput" class="form-label">Data de Nascimento</label>
-                            <input type="date" class="form-control" id="dobInput" required>
+                            <input type="date" class="form-control" id="dobInput" name="nasc" required>
                         </div>
                     </div>
 
                     <div class="row mb-4">
                         <div class="col-md-6 mb-3 mb-md-0">
                             <label for="emailInput" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="emailInput" placeholder="seu.email@exemplo.com" required>
+                            <input type="email" class="form-control" id="emailInput" name="email" placeholder="seu.email@exemplo.com" required>
                         </div>
                         <div class="col-md-6">
                             <label for="phoneInput" class="form-label">Telefone (Somente Números)</label>
@@ -53,6 +53,7 @@
                                 type="tel" 
                                 class="form-control" 
                                 id="phoneInput" 
+                                name="fone"
                                 placeholder="99999999999" 
                                 required 
                                 maxlength="15"
@@ -64,39 +65,45 @@
 
                     <div class="mb-3">
                         <label for="cepInput" class="form-label">CEP</label>
-                        <input type="text" class="form-control" id="cepInput" placeholder="00000-000" required>
+                        <input type="text" class="form-control" id="cepInput" name="cep" placeholder="00000-000" required>
                     </div>
                     
                     <div class="row mb-3">
                         <div class="col-md-9">
                             <label for="streetInput" class="form-label">Rua/Avenida</label>
-                            <input type="text" class="form-control" id="streetInput" placeholder="Ex: Rua das Flores" required>
+                            <input type="text" class="form-control" id="streetInput" name="rua" placeholder="Ex: Rua das Flores" required>
                         </div>
                         <div class="col-md-3">
                             <label for="numberInput" class="form-label">Número</label>
-                            <input type="text" class="form-control" id="numberInput" placeholder="123" required>
+                            <input type="text" class="form-control" id="numberInput" name="numero" placeholder="123" required>
                         </div>
                     </div>
 
                     <div class="mb-3">
                         <label for="neighborhoodInput" class="form-label">Bairro</label>
-                        <input type="text" class="form-control" id="neighborhoodInput" placeholder="Ex: Centro" required>
+                        <input type="text" class="form-control" id="neighborhoodInput" name="bairro" placeholder="Ex: Centro" required>
                     </div>
                     
                     <div class="row mb-4">
                         <div class="col-md-8">
                             <label for="cityInput" class="form-label">Cidade</label>
-                            <input type="text" class="form-control" id="cityInput" placeholder="Ex: São Paulo" required>
+                            <input type="text" class="form-control" id="cityInput" name="cidade" placeholder="Ex: São Paulo" required>
                         </div>
                         <div class="col-md-4">
                             <label for="stateInput" class="form-label">Estado</label>
-                            <input type="text" class="form-control" id="stateInput" placeholder="Ex: SP" maxlength="2" required>
+                            <input type="text" class="form-control" id="stateInput" name="uf" placeholder="Ex: SP" maxlength="2" required>
                         </div>
                     </div>
-
+                    
+                    <div class="mb-3">
+                        <label for="loginInput" class="form-label">Crie um Login</label>
+                        <input type="text" class="form-control" id="loginInput" name="login" placeholder="Ex: mariasilva123" required>
+                        <div class="form-text">Use um nome fácil de lembrar. Será seu login no sistema.</div>
+                    </div>
+                    
                     <div class="mb-4">
                         <label for="passwordInput" class="form-label">Crie uma Senha</label>
-                        <input type="password" class="form-control" id="passwordInput" required>
+                        <input type="password" class="form-control" id="passwordInput" name="password" required>
                     </div>
                     <div class="mb-4">
                         <label for="passwordInput" class="form-label">Repita a Senha</label>
@@ -119,18 +126,18 @@
                     
                     <div class="mb-4">
                         <label for="documentUpload" class="form-label">Anexar Comprovante de Residência (PDF ou Imagem)</label>
-                        <input class="form-control" type="file" id="documentUpload" required>
+                        <input class="form-control" type="file" id="documentUpload" name="comprovRes" required>
                         <div class="form-text">Isso é usado apenas para verificação de segurança.</div>
                     </div>
                     <div class="mb-4">
                         <label for="documentUpload" class="form-label">Anexar Atestado de Antecedentes Criminais (PDF ou Imagem)</label>
-                        <input class="form-control" type="file" id="documentUpload" required>
+                        <input class="form-control" type="file" id="documentUpload" name="anteced" required>
                         <div class="form-text">Isso é usado apenas para verificação de segurança.</div>
                     </div>
 
                     <div class="mb-4">
                         <label for="fotoPerfil" class="form-label">Envie uma foto de perfil</label>
-                        <input type="file" class="form-control" id="fotoPerfil" accept="image/*">
+                        <input type="file" class="form-control" id="fotoPerfil" name="perfil" accept="image/*">
                         <div class="form-text">Formatos aceitos: JPG, PNG ou JPEG.</div>
                     </div>
                     

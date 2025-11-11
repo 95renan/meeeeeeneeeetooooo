@@ -27,7 +27,7 @@ class Idoso(db.Model):
     cpf = db.Column(db.String(15), unique=True)
     nome = db.Column(db.String(100))
     login = db.Column(db.String(50), unique=True, nullable=False)
-    email = db.Column(db.String(100))
+    email = db.Column(db.String(100), unique=True, nullable=False)
     senha = db.Column(db.String(50))
     telefone = db.Column(db.String(15))
     nascimento = db.Column(db.Date)
@@ -38,9 +38,31 @@ class Idoso(db.Model):
     endNUMERO = db.Column(db.Integer)
     endBAIRRO = db.Column(db.String(100))
     endCIDADE = db.Column(db.String(100))
-    endUF = db.Column(db.String(100))
+    endUF = db.Column(db.String(2))
     criadoEm = db.Column(db.DateTime, nullable=False, server_default=func.now())
     
+class Prestador(db.model):
+    __tablename__='prestador_de_servicos'
+    idPrestador = db.Column(db.Integer, primary_key=True, unique=True, autoincrement=True)
+    cpf = db.Column(db.String(15), unique=True)
+    nome = db.Column(db.String(100))
+    login = db.Column(db.String(50), unique=True, nullable=False)
+    email = db.Column(db.String(100), unique=True, nullable=False)
+    senha = db.Column(db.String(50))
+    telefone = db.Column(db.String(15))
+    nascimento = db.Column(db.Date)
+    # fotoPERFIL = db.Column(db.LargeBinary)  # caso queira futuramente armazenar imagem
+    endCEP = db.Column(db.String(9))
+    endRUA = db.Column(db.String(100))
+    endNUMERO = db.Column(db.Integer)
+    endBAIRRO = db.Column(db.String(100))
+    endCIDADE = db.Column(db.String(100))
+    endUF = db.Column(db.String(2))
+    categoriaServ = db.Column(db.String(200))
+    comprovRes = db.Column(db.String(200))
+    antecedentes = db.Column(db.String(200))
+    criadoEm = db.Column(db.DateTime, nullable=False, server_default=func.now())
+
 
 # ------------------------------
 # Rotas
@@ -63,6 +85,64 @@ def cadastrarIdoso():
     endBAIRRO = (request.form.get('bairro') or '').strip()
     endCIDADE = (request.form.get('cidade') or '').strip()
     endUF = (request.form.get('uf') or '').strip()
+
+    login_existente = Idoso.query.filter_by(login=login).first()
+    if login_existente:
+        flash('Este login já está em uso. Escolha outro nome de usuário.', 'warning')
+        return redirect(url_for('cadastro_idoso'))
+
+    try:
+        u = Idoso(
+            cpf=cpf,
+            nome=nome,
+            email=email or None,
+            senha=senha,
+            telefone=telefone or None,
+            login=login,
+            nascimento=nascimento,
+            endCEP=endCEP,
+            endNUMERO=endNUMERO,
+            endRUA=endRUA,
+            endBAIRRO=endBAIRRO,
+            endCIDADE=endCIDADE,
+            endUF=endUF
+        )
+        db.session.add(u)
+        db.session.commit()
+        flash('Cadastro realizado com sucesso!', 'success')
+        return redirect(url_for('home'))
+
+    except IntegrityError:
+        db.session.rollback()
+        flash('Usuário já cadastrado com este login ou e-mail.', 'danger')
+        return redirect(url_for('home'))
+
+    except Exception as e:
+        db.session.rollback()
+        flash(f'Erro ao cadastrar: {str(e)}', 'danger')
+        return redirect(url_for('home'))
+
+@app.route('/prestador/cadastrar', methods=['POST'])
+def cadastrarPrestador():
+    cpf = (request.form.get('cpf') or '').strip()
+    nome = (request.form.get('nome') or '').strip()
+    email = (request.form.get('email') or '').strip()
+    senha = (request.form.get('password') or '').strip()
+    telefone = (request.form.get('fone') or '').strip()
+    login = (request.form.get('login') or '').strip()
+    
+    nascimento_str = (request.form.get('nasc') or '').strip()
+    nascimento = datetime.strptime(nascimento_str, "%Y-%m-%d").date() if nascimento_str else None
+    
+    endCEP = (request.form.get('cep') or '').strip()
+    endNUMERO = int(request.form.get('numero') or 0)
+    endRUA = (request.form.get('rua') or '').strip()
+    endBAIRRO = (request.form.get('bairro') or '').strip()
+    endCIDADE = (request.form.get('cidade') or '').strip()
+    endUF = (request.form.get('uf') or '').strip()
+    #categoriaServ = (request.form.get('') or '').strip()
+    comprovRes = (request.form.get('comprovRes') or '').strip()
+    antecedentes = (request.form.get('anteced') or '').strip()
 
     login_existente = Idoso.query.filter_by(login=login).first()
     if login_existente:
