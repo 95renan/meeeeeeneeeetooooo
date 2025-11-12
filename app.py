@@ -201,7 +201,7 @@ def login_prestador():
     # Verifica se os campos foram preenchidos
     if not login or not senha:
         flash('Por favor, informe seu login e senha.', 'warning')
-        return redirect(url_for('login_prestador'))  # rota da página de login (GET)
+        return redirect(url_for('loginprestador'))  # rota da página de login (GET)
 
     # Busca o idoso pelo nome de login
     user = Prestador.query.filter_by(login=login).first()
@@ -209,7 +209,7 @@ def login_prestador():
     # Verifica se o usuário existe e se a senha está correta
     if not user or user.senha != senha:
         flash('Login ou senha incorretos. Tente novamente.', 'danger')
-        return redirect(url_for('login_prestador'))
+        return redirect(url_for('loginprestador'))
 
     # Cria a sessão e redireciona
     session['usuario_id'] = user.idPrestador
@@ -280,7 +280,13 @@ def cadastro_prestador():
 
 @app.route('/busca_idoso')
 def busca_idoso():
-    return render_template('busca_idoso.html')
+    if 'usuario_id' not in session:
+        flash('Você precisa estar logado para acessar esta página.', 'warning')
+        return redirect(url_for('login_prestador'))
+
+    nome = session.get('usuario_nome')  # pega o nome do usuário logado
+    return render_template('busca_idoso.html', nome=nome)
+    
 
 @app.route('/resultado_busca_idoso')
 def resultado_busca_idoso():
@@ -292,7 +298,12 @@ def contratar_prestador():
 
 @app.route('/inicial_prestador')
 def inicial_prestador():
-    return render_template('inicial_prestador.html')
+    if 'usuario_id' not in session:
+        flash('Você precisa estar logado para acessar esta página.', 'warning')
+        return redirect(url_for('login_prestador'))
+
+    nome = session.get('usuario_nome')  # pega o nome do usuário logado
+    return render_template('inicial_prestador.html', nome=nome)
 
 @app.route('/servico_aceito')
 def servico_aceito():

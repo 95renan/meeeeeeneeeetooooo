@@ -24,6 +24,8 @@
                     <li class="nav-item"><a class="nav-link" href="/">Início</a></li>
                     <li class="nav-item"><a class="nav-link active" aria-current="page" href="/funciona">Como Funciona</a></li>
                     <li class="nav-item"><a class="nav-link" href="/contato">Contato</a></li>
+                    <a href="/logout" class="btn fw-bold px-4 py-2" 
+                        style="background-color:#1c7ed6; border:none;">Sair</a>
                 </ul>
             </div>
         </div>
@@ -31,7 +33,7 @@
 
     <!-- Saudação -->
     <section class="saudacao">
-        <h1>Olá, Renan! 👋</h1>
+        <h1>Olá, {{ nome }}! 👋</h1>
         <p>Bem-vindo de volta ao <strong>Meu Neto</strong>. Aqui estão as solicitações de ajuda mais próximas de você:</p>
     </section>
 
