@@ -41,8 +41,8 @@ class Idoso(db.Model):
     endUF = db.Column(db.String(2))
     criadoEm = db.Column(db.DateTime, nullable=False, server_default=func.now())
     
-class Prestador(db.model):
-    __tablename__='prestador_de_servicos'
+class Prestador(db.Model):
+    __tablename__='prestador_de_servico'
     idPrestador = db.Column(db.Integer, primary_key=True, unique=True, autoincrement=True)
     cpf = db.Column(db.String(15), unique=True)
     nome = db.Column(db.String(100))
@@ -58,7 +58,9 @@ class Prestador(db.model):
     endBAIRRO = db.Column(db.String(100))
     endCIDADE = db.Column(db.String(100))
     endUF = db.Column(db.String(2))
-    categoriaServ = db.Column(db.String(200))
+    serv1 = db.Column(db.String(45))
+    serv2 = db.Column(db.String(45))
+    serv3 = db.Column(db.String(45))
     comprovRes = db.Column(db.String(200))
     antecedentes = db.Column(db.String(200))
     criadoEm = db.Column(db.DateTime, nullable=False, server_default=func.now())
@@ -140,17 +142,19 @@ def cadastrarPrestador():
     endBAIRRO = (request.form.get('bairro') or '').strip()
     endCIDADE = (request.form.get('cidade') or '').strip()
     endUF = (request.form.get('uf') or '').strip()
-    #categoriaServ = (request.form.get('') or '').strip()
+    serv1 = (request.form.get('serv1') or '').strip()
+    serv2 = (request.form.get('serv2') or '').strip()
+    serv3 = (request.form.get('serv3') or '').strip()
     comprovRes = (request.form.get('comprovRes') or '').strip()
     antecedentes = (request.form.get('anteced') or '').strip()
 
-    login_existente = Idoso.query.filter_by(login=login).first()
+    login_existente = Prestador.query.filter_by(login=login).first()
     if login_existente:
         flash('Este login já está em uso. Escolha outro nome de usuário.', 'warning')
-        return redirect(url_for('cadastro_idoso'))
+        return redirect(url_for('cadastro_prestador'))
 
     try:
-        u = Idoso(
+        p = Prestador(
             cpf=cpf,
             nome=nome,
             email=email or None,
@@ -163,22 +167,55 @@ def cadastrarPrestador():
             endRUA=endRUA,
             endBAIRRO=endBAIRRO,
             endCIDADE=endCIDADE,
-            endUF=endUF
+            endUF=endUF,
+            serv1=serv1,
+            serv2=serv2,
+            serv3=serv3,
+            comprovRes=comprovRes,
+            antecedentes=antecedentes
         )
-        db.session.add(u)
+        db.session.add(p)
         db.session.commit()
         flash('Cadastro realizado com sucesso!', 'success')
-        return redirect(url_for('home'))
+        return redirect(url_for('inicial_prestador'))
 
     except IntegrityError:
         db.session.rollback()
         flash('Usuário já cadastrado com este login ou e-mail.', 'danger')
-        return redirect(url_for('home'))
+        return redirect(url_for('cadastro_prestador'))
 
     except Exception as e:
         db.session.rollback()
         flash(f'Erro ao cadastrar: {str(e)}', 'danger')
         return redirect(url_for('home'))
+    
+@app.route('/loginprestador')
+def loginprestador():
+    return render_template('login_prestador.html')
+
+@app.route('/login/prestador', methods=['POST'])
+def login_prestador():
+    login = (request.form.get('login') or '').strip()
+    senha = (request.form.get('senha') or '').strip()
+
+    # Verifica se os campos foram preenchidos
+    if not login or not senha:
+        flash('Por favor, informe seu login e senha.', 'warning')
+        return redirect(url_for('login_prestador'))  # rota da página de login (GET)
+
+    # Busca o idoso pelo nome de login
+    user = Prestador.query.filter_by(login=login).first()
+
+    # Verifica se o usuário existe e se a senha está correta
+    if not user or user.senha != senha:
+        flash('Login ou senha incorretos. Tente novamente.', 'danger')
+        return redirect(url_for('login_prestador'))
+
+    # Cria a sessão e redireciona
+    session['usuario_id'] = user.idPrestador
+    session['usuario_nome'] = user.nome
+    flash(f'Bem-vindo(a), {user.nome}!', 'success')
+    return redirect(url_for('inicial_prestador'))
 
 @app.route('/login', methods=['GET'])
 def login():
@@ -224,10 +261,6 @@ def logout():
 @app.route('/index')
 def home():
     return render_template('index.html')
-
-@app.route('/loginprestador')
-def login_prestador():
-    return render_template('login_prestador.html')
 
 @app.route('/funciona')
 def funciona():
