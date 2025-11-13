@@ -65,6 +65,20 @@ class Prestador(db.Model):
     antecedentes = db.Column(db.String(200))
     criadoEm = db.Column(db.DateTime, nullable=False, server_default=func.now())
 
+class Agendamento(db.Model):
+    __tablename__='agendamento'
+    idAgendamento = db.Column(db.Integer, primary_key=True, unique=True, autoincrement=True)
+    IdIdoso = db.Column(db.Integer, primary_key=True, unique=True, autoincrement=True)
+    IdPrestador = db.Column(db.Integer, primary_key=True, unique=True, autoincrement=True)
+    dataInicioPedido = db.Column(db.DateTime, nullable=False, server_default=func.now())
+    dataInicioServico = db.Column(db.DateTime, nullable=False, server_default=func.now())
+    horaDisponivel = db.Column(db.DateTime, nullable=False)
+    servico = db.Column(db.String(100))
+    valor = db.Column(db.Numeric(10,2))
+    descricao = db.Column(db.String(500))
+    
+
+
 
 # ------------------------------
 # Rotas
@@ -189,6 +203,51 @@ def cadastrarPrestador():
         flash(f'Erro ao cadastrar: {str(e)}', 'danger')
         return redirect(url_for('home'))
     
+@app.route('/pedido/cadastrar', methods=['POST'])
+def cadastrarPedido():
+
+    # Exige usuário logado
+    uid = session.get('usuario_id')
+    if not uid:
+        flash('Faça login para reservar.', 'warning')
+        return redirect(url_for('index'))
+    
+    servico = (request.form.get('servico') or '').strip()
+    dataInicio = (request.form.get('dataInicio') or '').strip()
+    horaDisponivel = (request.form.get('horaDisponivel') or '').strip()
+    valor = (request.form.get('valor') or '').strip()
+    descricao = (request.form.get('descricao') or '').strip()
+
+    # Valida campos obrigatórios
+    if not servico or not dataInicio or not horaDisponivel or not valor or not descricao:
+        flash('Informe tipo de serviço, data, horário e descrição.', 'warning')
+        return redirect(url_for('busca_idoso'))
+    
+    # Converte data e horários
+    try:
+        data = datetime.strptime(dataInicio, '%Y-%m-%d').date()
+        inicio = datetime.strptime(horaDisponivel, '%H:%M').time()
+    except ValueError:
+        flash('Formato de data/horário inválido.', 'danger')
+        return redirect(url_for('busca_idoso'))
+    
+    try:
+        a = Agendamento(
+            servico=servico,
+            dataInicio=dataInicio,
+            horaDisponivel=horaDisponivel,
+            valor=valor,
+            descricao=descricao
+            )
+        db.session.add(a)
+        db.session.commit()
+        flash('Pedido criado com sucesso!', 'success')
+        return redirect(url_for('resultado_busca_idoso'))
+    except Exception as e:
+        db.session.rollback()
+        flash(f'Erro ao criar reserva: {str(e)}', 'danger')
+        return redirect(url_for('busca_idoso'))
+    
 @app.route('/loginprestador')
 def loginprestador():
     return render_template('login_prestador.html')
@@ -216,6 +275,7 @@ def login_prestador():
     session['usuario_nome'] = user.nome
     flash(f'Bem-vindo(a), {user.nome}!', 'success')
     return redirect(url_for('inicial_prestador'))
+
 
 @app.route('/login', methods=['GET'])
 def login():

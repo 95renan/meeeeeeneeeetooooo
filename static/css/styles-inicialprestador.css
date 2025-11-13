@@ -142,3 +142,48 @@ footer {
     color: #666;
     margin-top: 40px;
 }
+
+#mensagem-ola {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #1c7ed6;
+    overflow: hidden;
+    white-space: nowrap;
+    border-right: 3px solid #1c7ed6; /* Cursor */
+    width: 0;
+    display: inline-block;
+    animation: typing 2s steps(25, end) forwards,
+            blink 0.8s step-end infinite,
+               hideCursor 0.2s ease-in 2.0s forwards; /* 👈 Aqui o segredo */
+}
+
+  /* Efeito de digitação */
+@keyframes typing {
+    from { width: 0; }
+    to { width: 14ch; } /* Ajuste o tamanho do texto */
+}
+
+  /* Cursor piscando */
+@keyframes blink {
+    50% { border-color: transparent; }
+}
+
+  /* Faz o cursor sumir no final */
+@keyframes hideCursor {
+    to { border-color: transparent; }
+}
+
+  /* Frase abaixo com entrada suave */
+.mensagem-bemvindo {
+    font-size: 1.1rem;
+    color: #444;
+    margin-top: 10px;
+    opacity: 0;
+    animation: fadeIn 2s ease-in-out 2.2s forwards;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}

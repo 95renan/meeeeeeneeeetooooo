@@ -54,28 +54,53 @@
                 </section>
 
                 <h1 class="display-6 fw-bolder mb-3 text-primary">Qual serviço você precisa hoje?</h1>
-                <p class="lead text-muted mb-0">Selecione uma das opções abaixo e nós encontraremos um "Neto" qualificado para te ajudar. É simples, rápido e seguro!</p>
+                <p class="lead text-muted mb-0">Selecione uma das opções abaixo e logo um "Neto" qualificado entrará em contato para te ajudar. É simples, rápido e seguro!</p>
             </div>
         </div>
     </header>
 
-    <main class="flex-grow-1 d-flex justify-content-center align-items-start pt-5"> <div class="container px-5"> <div class="busca-servico">
-                <label for="servico" class="label">Escolha um serviço:</label>
-                <select id="servico" class="select-servico">
-                    <option value="">Selecione...</option>
-                    <option value="jardinagem">Jardinagem</option>
-                    <option value="pequenos-reparos">Pequenos Reparos</option>
-                    <option value="companhia">Companhia</option>
-                    <option value="tecnologia">Ajuda Com Tecnologias/Aparelhos</option> 
-                    <option value="compras">Compras</option> 
-                    <option value="limpeza">Limpeza</option> 
-                </select>
-                <div>
-                    <a class="btn btn-buscar btn-lg px-5 py-3 me-sm-3 fs-6 fw-bolder " href="/resultado_busca_idoso"> Buscar </a>
+    <main class="flex-grow-1 d-flex justify-content-center align-items-start pt-5"> 
+        <form action="/pedido/cadastrar" method="POST">
+            <div class="container px-5"> 
+                <div class="busca-servico">
+                    <label for="servico" class="label">Escolha um serviço:</label>
+                    <select id="servico" class="select-servico" name="servico" required>
+                        <option value="">Selecione...</option>
+                        <option value="jardinagem">Jardinagem</option>
+                        <option value="pequenos-reparos">Pequenos Reparos</option>
+                        <option value="companhia">Companhia</option>
+                        <option value="tecnologia">Ajuda com Tecnologias/Aparelhos</option> 
+                        <option value="compras">Compras</option> 
+                        <option value="limpeza">Limpeza</option>
+                        <option value="todos">Ver Todos</option> 
+                    </select>
+    
+                    <!-- Novo campo: Data de início -->
+                    <label for="data_inicio" class="label mt-4">Data de início do serviço:</label>
+                    <input type="date" id="data_inicio" name="dataInicio" class="form-control" required>
+    
+                    <!-- Novo campo: Hora disponível -->
+                    <label for="hora_disponivel" class="label mt-4">Hora disponível:</label>
+                    <input type="time" id="hora_disponivel" name="horaDisponivel" class="form-control" required>
+    
+                    <!-- Novo campo: Valor -->
+                    <label for="valor" class="label mt-4">Valor oferecido (R$):</label>
+                    <input type="number" id="valor" name="valor" class="form-control" step="0.01" min="0" placeholder="Ex: 50.00" required>
+    
+                    <!-- Novo campo: Descrição -->
+                    <label for="descricao" class="label mt-4">Descrição do serviço:</label>
+                    <textarea id="descricao" name="descricao" class="form-control" rows="4" placeholder="Descreva brevemente o serviço desejado..." required></textarea>
+    
+                    <div class="text-center mt-5">
+                        <button type="submit" class="btn btn-buscar btn-lg px-5 py-3 fs-6 fw-bolder">
+                            Realizar Pedido
+                        </button>
+                    </div>
                 </div>
             </div>
-        </div>
+        </form>
     </main>
+    
 
     <footer class="bg-white py-4 mt-auto">
             <div class="container px-5">
@@ -96,7 +121,7 @@
 
     <!-- Termos de Uso-->
         <div class="modal fade" id="termosUsoModal" tabindex="-1" aria-labelledby="termosUsoModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-scrollable modal-lg">
+        <div class="modal-dialog modal-dialog-scrollable modal-lg">
         <div class="modal-content">
             
             <div class="modal-header">
