@@ -28,11 +28,32 @@
                             <li class="nav-item"><a class="nav-link active" aria-current="page" href="/">Início</a></li>
                             <li class="nav-item"><a class="nav-link" href="/funciona">Como Funciona</a></li>
                             <li class="nav-item"><a class="nav-link" href="/contato">Contato</a></li>
+                            <li>
+                                <a href="/logout" class="btn btn-primary fw-bold px-4 py-2" 
+                                style="background-color:#1c7ed6; border:none;">Sair</a>
+                            </li>
                             <!--<li class="nav-item"><a class="nav-link" href="/login">Login</a></li>-->
                         </ul>
                     </div>
             </div>
         </nav>
+
+            <!-- após o header, exibir flashes -->
+    <!-- {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    <div class="container px-5 mt-4">
+        {% for category, message in messages %}
+        <div class="alert alert-{{ 'warning' if category=='warning' else
+                                'success' if category=='success' else
+                                'danger' if category=='danger' else
+                                'info' }}" role="alert">
+            {{ message }}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+{% endwith %} -->
+
 
     <div class="container my-4">
         <h1 class="mb-4">Resultados para: <strong>Jardinagem</strong></h1>

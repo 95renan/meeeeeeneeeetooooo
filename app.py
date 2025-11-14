@@ -66,19 +66,17 @@ class Prestador(db.Model):
     criadoEm = db.Column(db.DateTime, nullable=False, server_default=func.now())
 
 class Agendamento(db.Model):
-    __tablename__='agendamento'
-    idAgendamento = db.Column(db.Integer, primary_key=True, unique=True, autoincrement=True)
-    IdIdoso = db.Column(db.Integer, primary_key=True, unique=True, autoincrement=True)
-    IdPrestador = db.Column(db.Integer, primary_key=True, unique=True, autoincrement=True)
-    dataInicioPedido = db.Column(db.DateTime, nullable=False, server_default=func.now())
-    dataInicioServico = db.Column(db.DateTime, nullable=False, server_default=func.now())
-    horaDisponivel = db.Column(db.DateTime, nullable=False)
+    __tablename__ = 'agendamento'
+    idAgendamento = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    idIdoso = db.Column(db.Integer, db.ForeignKey('idoso.idIdoso'), nullable=False)
+    # prestador só será definido quando alguém aceitar o serviço
+    idPrestador = db.Column(db.Integer, db.ForeignKey('prestador_de_servico.idPrestador'), nullable=True)
+    dataInicioPedido = db.Column(db.DateTime, default=func.now())
+    dataInicioServico = db.Column(db.Date)
+    horaDisponivel = db.Column(db.Time)
     servico = db.Column(db.String(100))
     valor = db.Column(db.Numeric(10,2))
     descricao = db.Column(db.String(500))
-    
-
-
 
 # ------------------------------
 # Rotas
@@ -196,12 +194,12 @@ def cadastrarPrestador():
     except IntegrityError:
         db.session.rollback()
         flash('Usuário já cadastrado com este login ou e-mail.', 'danger')
-        return redirect(url_for('cadastro_prestador'))
+        return redirect(url_for('login_prestador'))
 
     except Exception as e:
         db.session.rollback()
         flash(f'Erro ao cadastrar: {str(e)}', 'danger')
-        return redirect(url_for('home'))
+        return redirect(url_for('home')) 
     
 @app.route('/pedido/cadastrar', methods=['POST'])
 def cadastrarPedido():
@@ -233,12 +231,15 @@ def cadastrarPedido():
     
     try:
         a = Agendamento(
+            idIdoso=session['usuario_id'],
+            idPrestador=None,
             servico=servico,
-            dataInicio=dataInicio,
-            horaDisponivel=horaDisponivel,
+            dataInicioServico=data,
+            horaDisponivel=inicio,
             valor=valor,
             descricao=descricao
-            )
+)
+
         db.session.add(a)
         db.session.commit()
         flash('Pedido criado com sucesso!', 'success')
@@ -303,6 +304,12 @@ def login_idoso():
     # Cria a sessão e redireciona
     session['usuario_id'] = user.idIdoso
     session['usuario_nome'] = user.nome
+    session['usuario_endCEP'] = user.endCEP
+    session['usuario_endRUA'] = user.endRUA
+    session['usuario_endNUMERO'] = user.endNUMERO
+    session['usuario_endBAIRRO'] = user.endBAIRRO
+    session['usuario_endCIDADE'] = user.endCIDADE
+    session['usuario_endUF'] = user.endUF
     flash(f'Bem-vindo(a), {user.nome}!', 'success')
     return redirect(url_for('busca_idoso'))
 
@@ -342,10 +349,16 @@ def cadastro_prestador():
 def busca_idoso():
     if 'usuario_id' not in session:
         flash('Você precisa estar logado para acessar esta página.', 'warning')
-        return redirect(url_for('login_prestador'))
+        return redirect(url_for('login'))
 
     nome = session.get('usuario_nome')  # pega o nome do usuário logado
-    return render_template('busca_idoso.html', nome=nome)
+    cep = session.get('usuario_endCEP')
+    rua = session.get('usuario_endRUA')
+    numero = session.get('usuario_endNUMERO')
+    bairro = session.get('usuario_endBAIRRO')
+    cidade = session.get('usuario_endCIDADE')
+    uf = session.get('usuario_endUF')
+    return render_template('busca_idoso.html', nome=nome, cep=cep, rua=rua, numero=numero, bairro=bairro, cidade=cidade, uf=uf)
     
 
 @app.route('/resultado_busca_idoso')
