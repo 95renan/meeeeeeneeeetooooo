@@ -1,97 +1,106 @@
-/* Estilos para a Navbar */
-.custom-navbar {
-    border-bottom: 3px solid #28a745; /* Linha verde sutil na base */
+/* Títulos */
+.section-title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #1c7ed6;
+    margin-bottom: 25px;
 }
 
-/* Estilos para o Corpo da Página */
-body {
-    background-color: #f8f9fa; /* Fundo cinza claro */
-    font-family: 'Plus Jakarta Sans', sans-serif; /* Aplicando a fonte Jakarta */
+/* Estilo Material Design */
+.md-card {
+    background: #fff;
+    border-radius: 14px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    overflow: hidden;
+    transition: transform 0.2s ease;
 }
 
-/* Estilos para os Cards */
-.custom-card {
-    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transição suave */
-    border-radius: 10px; /* Bordas arredondadas */
-    overflow: hidden; /* Garante que a imagem se ajuste ao card */
+.md-card:hover {
+    transform: translateY(-3px);
 }
 
-/* Efeito de hover (passar o mouse) no Card */
-.custom-card:hover {
-    transform: translateY(-5px); /* Levanta um pouco o card */
-    box-shadow: 0 1rem 3rem rgba(0,0,0,.175) !important; /* Sombra mais forte */
+.md-bar {
+    height: 6px;
+    background: #1c7ed6;
 }
 
-/* ESTA REGRA TEM ALTA PRIORIDADE */
-/* Estamos dizendo: para a imagem .profile-thumb que está dentro de um .custom-card, 
-   aplique estas regras. */
-
-.custom-card img.profile-thumb {
-    /* 1. SEU NOVO TAMANHO E FORMA */
-    width: 500px !important;    /* Adicionando !important */
-    height: 500px !important;   /* Adicionando !important */
-    border-radius: 50% !important;
-    object-fit: cover; 
-    
-    /* 2. CENTRALIZAÇÃO HORIZONTAL */
-    display: block !important;
-    margin-left: auto !important;
-    margin-right: auto !important;
-    
-    /* 3. ESPAÇAMENTO */
-    margin-bottom: 20px !important;
+.md-content {
+    padding: 18px 22px;
 }
 
-.minha-formatacao{
-    width: 200px !important;
-    height: 200px !important;
-    border-radius: 80% !important;
-    object-fit: cover !important;
-    display: block !important;
-    margin: 0 auto !important;
+.md-title {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #1c7ed6;
+    margin-bottom: 12px;
 }
 
-/* Estilo para a lista de detalhes no card (para remover bordas desnecessárias) */
-.list-group-item {
-    padding-left: 0;
+.md-info {
+    margin: 4px 0;
+    font-size: 0.95rem;
+    color: #333;
 }
 
-/* Ícone de estrela */
-.star-icon {
-    color: #ffd700; /* Cor dourada para a estrela */
-    font-weight: 900;
+.md-desc {
+    background: #f1f3f5;
+    padding: 10px 15px;
+    font-size: 0.9rem;
+    border-radius: 8px;
+    margin-top: 12px;
+    border-left: 3px solid #1c7ed6;
 }
 
-/* Ajuste do rodapé do card */
-.card-footer {
-    background-color: white; /* Garante fundo branco para o botão */
-    border-top: none;
-    padding-top: 0.5rem;
+.btn-cancelar {
+    background-color: #e03131;
+    color: white;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.2s;
 }
 
-/* 1. Garante que o corpo ocupe 100% da altura da viewport */
-html {
-    height: 100%;
+.btn-cancelar:hover {
+    background-color: #c92a2a;
 }
 
-/* 2. Habilita o Flexbox e a direção em coluna */
-body {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh; /* min-height de 100% da altura da viewport */
-    background-color: #f8f9fa; /* Mantendo o fundo cinza claro */
+.btn-editar {
+    display: inline-block;
+    margin-top: 8px;
+    background-color: #1c7ed6;
+    color: white;
+    padding: 8px 14px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: 0.2s;
 }
 
-/* 3. Empurra o rodapé para baixo */
-/* Isso faz com que todo o conteúdo entre a navbar e o footer cresça e ocupe o espaço extra */
-.container {
-    flex-grow: 1; 
-    /* Esta linha é crucial. No seu HTML atual, o corpo principal 
-       dos resultados (que tem a classe .container) precisa ser o item que cresce. */
+.btn-editar:hover {
+    background-color: #155fa8;
 }
 
-/* --- (Estilos antigos abaixo) --- */
-.custom-navbar {
-    border-bottom: 3px solid #28a745;
+.btn-cancelar {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: 0.2s;
+    width: 100%;
 }
-/* ... etc. */
+
+.btn-cancelar:hover {
+    background-color: #b02a37;
+}
+
+.edit-form input, .edit-form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 14px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}

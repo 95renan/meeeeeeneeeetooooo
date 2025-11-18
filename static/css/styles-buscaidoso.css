@@ -293,5 +293,155 @@ header .text-center {
   to { opacity: 1; transform: translateY(0); }
 }
 
+/* Container principal centralizado */
+#abasUsuario {
+    justify-content: center !important;
+}
+
+/* Conteúdo das abas centralizado */
+.tab-content {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+/* Área interna centralizada e com largura limitada */
+.tab-pane {
+    max-width: 900px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+/* Centraliza os cards dentro das abas */
+.row.g-4 {
+    justify-content: center !important;
+    text-align: center;
+}
+
+/* Centraliza texto dentro dos cards */
+.md-card {
+    text-align: center;
+}
+
+/* Card estilizado */
+.md-card {
+    background: white;
+    border-radius: 18px;
+    padding: 20px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.12);
+    transition: 0.3s;
+}
+
+.md-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 5px 18px rgba(0,0,0,0.15);
+}
+
+/* Barra superior do card */
+.md-bar {
+    height: 6px;
+    width: 100%;
+    border-radius: 20px;
+    background: #1c7ed6;
+    margin-bottom: 15px;
+}
+
+/* Texto dentro dos cards */
+.md-title {
+    color: #1c7ed6;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.md-info {
+    font-size: 0.95rem;
+    color: #444;
+}
+
+.md-desc {
+    font-size: 0.95rem;
+    color: #555;
+    margin-top: 10px;
+}
+
+/* Botão Cancelar */
+.btn-cancelar {
+    background-color: #e03131;
+    color: #fff;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 8px;
+    font-weight: 600;
+    margin-top: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-cancelar:hover {
+    background-color: #c92a2a;
+}
+
+/* Botão Editar */
+.btn-editar {
+    display: inline-block;
+    background-color: #1c7ed6;
+    color: #fff !important;
+    padding: 8px 15px;
+    margin-top: 10px;
+    border-radius: 8px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.btn-editar:hover {
+    background-color: #1864ab;
+}
+
+/* FORMULÁRIO — centralizado */
+form {
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+/* Títulos centralizados */
+.section-title {
+    text-align: center;
+}
+
+/* Inputs 100% mas ainda centralizados */
+form .form-control {
+    text-align: center;
+}
+
+/* Centralizar completamente a saudação e textos do header */
+header .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center !important; /* CENTRALIZA */
+    text-align: center !important;
+}
+
+header .text-center {
+    width: 100%;
+    text-align: center !important;
+}
+
+/* Ajuste da saudação */
+.saudacao {
+    text-align: center !important;
+    width: 100%;
+}
+
+#mensagem-ola {
+    text-align: center !important;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.mensagem-bemvindo {
+    text-align: center !important;
+}
 
 

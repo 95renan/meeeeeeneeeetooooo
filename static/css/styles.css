@@ -11810,4 +11810,19 @@ footer {
   font-weight: 500;
 }
 
+.card {
+    border-radius: 12px;
+}
+
+.form-label {
+    color: #333;
+}
+
+.btn-primary:hover {
+    opacity: .9;
+}
+
+h2 {
+    font-size: 28px;
+}
 

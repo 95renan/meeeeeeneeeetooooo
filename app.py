@@ -9,7 +9,7 @@ from sqlalchemy.exc import IntegrityError
 app = Flask(__name__)
 
 # Configurações principais
-app.config['SECRET_KEY'] = 'dev-secret-key'  # Corrigido (antes era SECRET-KEY)
+app.config['SECRET_KEY'] = 'dev-secret-key'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv(
     'DATABASE_URL',
@@ -19,7 +19,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv(
 db = SQLAlchemy(app)
 
 # ------------------------------
-# Modelo do banco de dados
+# Modelo do banco de dados (Mantido igual)
 # ------------------------------
 class Idoso(db.Model):
     __tablename__ = 'idoso'
@@ -32,7 +32,7 @@ class Idoso(db.Model):
     telefone = db.Column(db.String(15))
     nascimento = db.Column(db.Date)
     parentesco = db.Column(db.String(45))
-    # fotoPERFIL = db.Column(db.LargeBinary)  # caso queira futuramente armazenar imagem
+    # fotoPERFIL = db.Column(db.LargeBinary)
     endCEP = db.Column(db.String(9))
     endRUA = db.Column(db.String(100))
     endNUMERO = db.Column(db.Integer)
@@ -51,7 +51,7 @@ class Prestador(db.Model):
     senha = db.Column(db.String(50))
     telefone = db.Column(db.String(15))
     nascimento = db.Column(db.Date)
-    # fotoPERFIL = db.Column(db.LargeBinary)  # caso queira futuramente armazenar imagem
+    # fotoPERFIL = db.Column(db.LargeBinary)
     endCEP = db.Column(db.String(9))
     endRUA = db.Column(db.String(100))
     endNUMERO = db.Column(db.Integer)
@@ -242,12 +242,42 @@ def cadastrarPedido():
 
         db.session.add(a)
         db.session.commit()
-        flash('Pedido criado com sucesso!', 'success')
-        return redirect(url_for('resultado_busca_idoso'))
+        # >>> REDIRECIONAMENTO ATUALIZADO <<<
+        flash('Pedido criado com sucesso! Abaixo, confira a lista de pedidos.', 'success')
+        return redirect(url_for('busca_idoso'))
     except Exception as e:
         db.session.rollback()
         flash(f'Erro ao criar reserva: {str(e)}', 'danger')
         return redirect(url_for('busca_idoso'))
+    
+@app.route('/pedido/cancelar/<int:idAgendamento>', methods=['POST'])
+def cancelarPedido(idAgendamento):
+
+    usuario_id = session.get('usuario_id')
+
+    if not usuario_id:
+        flash("Faça login para continuar.", "warning")
+        return redirect(url_for('login'))
+
+    # Verifica se o pedido pertence ao usuário
+    pedido = Agendamento.query.filter_by(idAgendamento=idAgendamento, idIdoso=usuario_id).first()
+
+    if not pedido:
+        flash("Você não tem permissão para cancelar este pedido.", "danger")
+        # >>> REDIRECIONAMENTO ATUALIZADO <<<
+        return redirect(url_for('busca_idoso'))
+
+    try:
+        db.session.delete(pedido)
+        db.session.commit()
+        flash("Pedido cancelado com sucesso!", "success")
+    except:
+        db.session.rollback()
+        flash("Erro ao cancelar pedido.", "danger")
+
+    # >>> REDIRECIONAMENTO ATUALIZADO <<<
+    return redirect(url_for('busca_idoso'))
+
     
 @app.route('/loginprestador')
 def loginprestador():
@@ -261,7 +291,7 @@ def login_prestador():
     # Verifica se os campos foram preenchidos
     if not login or not senha:
         flash('Por favor, informe seu login e senha.', 'warning')
-        return redirect(url_for('loginprestador'))  # rota da página de login (GET)
+        return redirect(url_for('loginprestador'))
 
     # Busca o idoso pelo nome de login
     user = Prestador.query.filter_by(login=login).first()
@@ -291,7 +321,7 @@ def login_idoso():
     # Verifica se os campos foram preenchidos
     if not login or not senha:
         flash('Por favor, informe seu login e senha.', 'warning')
-        return redirect(url_for('login'))  # rota da página de login (GET)
+        return redirect(url_for('login'))
 
     # Busca o idoso pelo nome de login
     user = Idoso.query.filter_by(login=login).first()
@@ -351,20 +381,119 @@ def busca_idoso():
         flash('Você precisa estar logado para acessar esta página.', 'warning')
         return redirect(url_for('login'))
 
-    nome = session.get('usuario_nome')  # pega o nome do usuário logado
+    usuario_id = session.get('usuario_id')
+    nome = session.get('usuario_nome')
     cep = session.get('usuario_endCEP')
     rua = session.get('usuario_endRUA')
     numero = session.get('usuario_endNUMERO')
     bairro = session.get('usuario_endBAIRRO')
     cidade = session.get('usuario_endCIDADE')
     uf = session.get('usuario_endUF')
-    return render_template('busca_idoso.html', nome=nome, cep=cep, rua=rua, numero=numero, bairro=bairro, cidade=cidade, uf=uf)
+    
+    # ----------------------------------------------------
+    # LÓGICA DE BUSCA DE PEDIDOS MOVIDA DE resultado_busca_idoso
+    # ----------------------------------------------------
+    
+    # MEUS PEDIDOS
+    meus_pedidos_query = (
+        db.session.query(Agendamento, Idoso)
+        .join(Idoso, Agendamento.idIdoso == Idoso.idIdoso)
+        .filter(Agendamento.idIdoso == usuario_id)
+        .order_by(db.desc(Agendamento.dataInicioPedido))
+        .all()
+    )
+
+    # OUTROS PEDIDOS
+    # Filtro: Mostrar apenas pedidos que não são do usuário logado (assumindo que idIdoso é o ID do solicitante)
+    outros_pedidos_query = (
+        db.session.query(Agendamento, Idoso)
+        .join(Idoso, Agendamento.idIdoso == Idoso.idIdoso)
+        .filter(Agendamento.idIdoso != usuario_id)
+        .order_by(db.desc(Agendamento.dataInicioPedido))
+        .all()
+    )
+
+    # LISTA FORMATADA (Meus Pedidos)
+    meus = []
+    for ped, user in meus_pedidos_query:
+        meus.append({
+            "id": ped.idAgendamento,
+            "servico": ped.servico,
+            "dataInicioServico": ped.dataInicioServico,
+            "horaDisponivel": ped.horaDisponivel,
+            "valor": ped.valor,
+            "descricao": ped.descricao,
+            "nome_solicitante": user.nome
+        })
+
+    # LISTA FORMATADA (Outros Pedidos)
+    outros = []
+    for ped, user in outros_pedidos_query:
+        outros.append({
+            "id": ped.idAgendamento,
+            "servico": ped.servico,
+            "dataInicioServico": ped.dataInicioServico,
+            "horaDisponivel": ped.horaDisponivel,
+            "valor": ped.valor,
+            "descricao": ped.descricao,
+            "nome_solicitante": user.nome
+        })
+    
+    # Renderiza a template com todos os dados
+    return render_template(
+        'busca_idoso.html', 
+        nome=nome, 
+        cep=cep, 
+        rua=rua, 
+        numero=numero, 
+        bairro=bairro, 
+        cidade=cidade, 
+        uf=uf,
+        meus_pedidos=meus,     # Variável de Meus Pedidos
+        outros_pedidos=outros # Variável de Outros Pedidos
+    )
     
 
-@app.route('/resultado_busca_idoso')
-def resultado_busca_idoso():
-    return render_template('resultado_busca_idoso.html')
+# Rota /resultado_busca_idoso foi absorvida pela /busca_idoso
+# Vamos deixá-la aqui apenas para referência e remover a lógica
+# @app.route('/resultado_busca_idoso')
+# def resultado_busca_idoso():
+#     # Essa rota não é mais necessária. Pode ser removida ou redirecionada.
+#     return redirect(url_for('busca_idoso'))
 
+@app.route('/pedido/editar/<int:id>', methods=['GET'])
+def editar_pedido_form(id):
+    if 'usuario_id' not in session:
+        flash("Você precisa estar logado para editar o pedido.", "warning")
+        return redirect(url_for('login'))
+
+    pedido = Agendamento.query.get_or_404(id)
+
+    # Garantir que o pedido pertence a quem está logado
+    if pedido.idIdoso != session['usuario_id']:
+        flash("Você não pode editar este pedido.", "danger")
+        # >>> REDIRECIONAMENTO ATUALIZADO <<<
+        return redirect(url_for('busca_idoso'))
+
+    return render_template("editar_pedido.html", pedido=pedido)
+
+@app.route('/pedido/editar/<int:id>', methods=['POST'])
+def editar_pedido(id):
+    pedido = Agendamento.query.get_or_404(id)
+
+    pedido.servico = request.form.get('servico')
+    pedido.dataInicioServico = datetime.strptime(request.form.get('dataInicioServico'), "%Y-%m-%d").date()
+    pedido.horaDisponivel = datetime.strptime(request.form.get('horaDisponivel'), "%H:%M").time()
+    pedido.valor = request.form.get('valor')
+    pedido.descricao = request.form.get('descricao')
+
+    db.session.commit()
+
+    flash("Pedido atualizado com sucesso!", "success")
+    # >>> REDIRECIONAMENTO ATUALIZADO <<<
+    return redirect(url_for('busca_idoso'))
+
+# ... (Restante das rotas: contratar_prestador, inicial_prestador, servico_aceito, servico_concluido - Mantidas iguais) ...
 @app.route('/contratar_prestador')
 def contratar_prestador():
     return render_template('contratar_prestador.html')
