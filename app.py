@@ -77,6 +77,12 @@ class Agendamento(db.Model):
     servico = db.Column(db.String(100))
     valor = db.Column(db.Numeric(10,2))
     descricao = db.Column(db.String(500))
+    aceito_por = db.Column(db.Integer, db.ForeignKey('prestador_de_servico.idPrestador'), nullable=True)
+    status = db.Column(db.String(20), default="pendente")
+    idoso = db.relationship("Idoso", foreign_keys=[idIdoso])
+    prestador = db.relationship("Prestador", foreign_keys=[aceito_por])
+
+
 
 # ------------------------------
 # Rotas
@@ -504,8 +510,90 @@ def inicial_prestador():
         flash('Você precisa estar logado para acessar esta página.', 'warning')
         return redirect(url_for('login_prestador'))
 
-    nome = session.get('usuario_nome')  # pega o nome do usuário logado
-    return render_template('inicial_prestador.html', nome=nome)
+    prestador_id = session['usuario_id']
+    nome = session.get('usuario_nome')
+
+    # Pedidos que ainda não foram aceitos por ninguém
+    pedidos_disponiveis = Agendamento.query.filter(Agendamento.aceito_por.is_(None)).all()
+    
+
+    # Pedidos que este prestador aceitou
+    pedidos_aceitos = Agendamento.query.filter_by(aceito_por=prestador_id, status="aceito").all()
+    pedidos_concluidos = Agendamento.query.filter_by(aceito_por=prestador_id, status="concluido").all()
+
+    return render_template(
+        'inicial_prestador.html',
+        nome=nome,
+        pedidos_disponiveis=pedidos_disponiveis,
+        pedidos_aceitos=pedidos_aceitos,
+        pedidos_concluidos=pedidos_concluidos
+    )
+
+@app.route('/prestador/aceitar/<int:id>', methods=['POST'])
+def aceitar_servico(id):
+    if 'usuario_id' not in session:
+        flash('Você precisa estar logado.', 'warning')
+        return redirect('/login_prestador')
+
+    prestador_id = session['usuario_id']
+    pedido = Agendamento.query.get(id)
+
+    if not pedido:
+        flash("Serviço não encontrado.", "danger")
+        return redirect('/inicial_prestador')
+
+    if pedido.aceito_por is not None:
+        flash("Esse serviço já foi aceito por outra pessoa.", "warning")
+        return redirect('/inicial_prestador')
+
+    pedido.aceito_por = prestador_id
+    pedido.status = "aceito"
+    db.session.commit()
+
+    flash("Serviço aceito com sucesso!", "success")
+    return redirect('/inicial_prestador')
+
+@app.route('/prestador/cancelar/<int:id>', methods=['POST'])
+def cancelar_aceitacao(id):
+    if 'usuario_id' not in session:
+        flash('Você precisa estar logado.', 'warning')
+        return redirect('/login_prestador')
+
+    prestador_id = session['usuario_id']
+    pedido = Agendamento.query.get(id)
+
+    if not pedido or pedido.aceito_por != prestador_id:
+        flash("Operação inválida.", "danger")
+        return redirect('/inicial_prestador')
+
+    pedido.aceito_por = None
+    pedido.status = "pendente"
+    db.session.commit()
+
+    flash("Aceitação cancelada.", "info")
+    return redirect('/inicial_prestador')
+
+@app.route('/prestador/concluir/<int:id>', methods=['POST'])
+def concluir_servico(id):
+    if 'usuario_id' not in session:
+        flash('Você precisa estar logado.', 'warning')
+        return redirect('/login_prestador')
+
+    prestador_id = session['usuario_id']
+    pedido = Agendamento.query.get(id)
+
+    if not pedido or pedido.aceito_por != prestador_id:
+        flash("Operação inválida.", "danger")
+        return redirect('/inicial_prestador')
+
+    pedido.status = "concluido"
+    db.session.commit()
+
+    flash("Serviço concluído com sucesso!", "success")
+    return redirect('/inicial_prestador')
+
+
+
 
 @app.route('/servico_aceito')
 def servico_aceito():
