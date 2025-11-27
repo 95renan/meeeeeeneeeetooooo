@@ -342,21 +342,21 @@ ola.style.visibility = "visible";
 </script>
 
 {% with messages = get_flashed_messages(with_categories=true) %}
-  {% if messages %}
+{% if messages %}
     <script>
-      document.addEventListener("DOMContentLoaded", function() {
+    document.addEventListener("DOMContentLoaded", function() {
         {% for category, message in messages %}
-          Swal.fire({
+        Swal.fire({
             title: "{{ 'Sucesso!' if category == 'success' else ('Erro!' if category == 'danger' else 'Aviso!') }}",
             text: "{{ message }}",
             icon: "{{ 'success' if category == 'success' else ('error' if category == 'danger' else 'warning') }}",
             confirmButtonColor: '#1c7ed6',
             confirmButtonText: 'OK',
-          });
+        });
         {% endfor %}
-      });
+    });
     </script>
-  {% endif %}
+{% endif %}
 {% endwith %}
 
 </body>

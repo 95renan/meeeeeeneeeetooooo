@@ -40,6 +40,8 @@ class Idoso(db.Model):
     endCIDADE = db.Column(db.String(100))
     endUF = db.Column(db.String(2))
     criadoEm = db.Column(db.DateTime, nullable=False, server_default=func.now())
+    perfil = db.Column(db.String(20))
+
     
 class Prestador(db.Model):
     __tablename__='prestador_de_servico'
@@ -64,6 +66,8 @@ class Prestador(db.Model):
     comprovRes = db.Column(db.String(200))
     antecedentes = db.Column(db.String(200))
     criadoEm = db.Column(db.DateTime, nullable=False, server_default=func.now())
+    perfil = db.Column(db.String(20))  # 'idoso', 'prestador', 'admin'
+
 
 class Agendamento(db.Model):
     __tablename__ = 'agendamento'
@@ -310,7 +314,12 @@ def login_prestador():
     # Cria a sessão e redireciona
     session['usuario_id'] = user.idPrestador
     session['usuario_nome'] = user.nome
+    session['usuario_perfil'] = user.perfil
+
     flash(f'Bem-vindo(a), {user.nome}!', 'success')
+    if user.perfil == "admin":
+        return redirect(url_for('admin_dashboard'))
+
     return redirect(url_for('inicial_prestador'))
 
 
@@ -340,6 +349,7 @@ def login_idoso():
     # Cria a sessão e redireciona
     session['usuario_id'] = user.idIdoso
     session['usuario_nome'] = user.nome
+    session['usuario_perfil'] = user.perfil
     session['usuario_endCEP'] = user.endCEP
     session['usuario_endRUA'] = user.endRUA
     session['usuario_endNUMERO'] = user.endNUMERO
@@ -347,6 +357,8 @@ def login_idoso():
     session['usuario_endCIDADE'] = user.endCIDADE
     session['usuario_endUF'] = user.endUF
     flash(f'Bem-vindo(a), {user.nome}!', 'success')
+    if user.perfil == "admin":
+        return redirect(url_for('admin_dashboard'))
     return redirect(url_for('busca_idoso'))
 
 # Rota que realiza o logout do usuário
@@ -592,6 +604,83 @@ def concluir_servico(id):
     flash("Serviço concluído com sucesso!", "success")
     return redirect('/inicial_prestador')
 
+
+@app.route('/admin')
+def admin_dashboard():
+    # Bloqueia quem não é admin
+    if session.get('usuario_perfil') != 'admin':
+        flash("Acesso restrito aos administradores.", "danger")
+        return redirect(url_for('home'))
+
+    view = request.args.get('view', 'home')
+
+    idosos = []
+    prestadores = []
+    servicos = []
+
+    if view == "usuarios":
+        idosos = Idoso.query.all()
+        prestadores = Prestador.query.all()
+
+    if view == "servicos":
+        servicos = Agendamento.query.all()
+
+    if view == "relatorios":
+        total_idosos = Idoso.query.count()
+        total_prestadores = Prestador.query.count()
+        total_pedidos = Agendamento.query.count()
+        concluidos = Agendamento.query.filter_by(status="concluido").count()
+        pendentes = Agendamento.query.filter_by(status="pendente").count()
+
+
+    return render_template(
+    'admin.html',
+    view=view,
+    idosos=idosos,
+    prestadores=prestadores,
+    servicos=servicos,
+    total_idosos=locals().get("total_idosos"),
+    total_prestadores=locals().get("total_prestadores"),
+    total_pedidos=locals().get("total_pedidos"),
+    concluidos=locals().get("concluidos"),
+    pendentes=locals().get("pendentes"),
+    )
+
+
+
+@app.route('/admin/usuarios')
+def admin_usuarios():
+    idosos = Idoso.query.all()
+    prestadores = Prestador.query.all()
+
+    return render_template(
+        'admin_usuarios.html',
+        idosos=idosos,
+        prestadores=prestadores
+    )
+
+@app.route('/admin/servicos')
+def admin_servicos():
+    pedidos = Agendamento.query.order_by(Agendamento.dataInicioPedido.desc()).all()
+    return render_template('admin_servicos.html', pedidos=pedidos)
+
+@app.route('/admin/relatorios')
+def admin_relatorios():
+    total_idosos = Idoso.query.count()
+    total_prestadores = Prestador.query.count()
+    total_pedidos = Agendamento.query.count()
+
+    concluidos = Agendamento.query.filter_by(status="concluido").count()
+    pendentes = Agendamento.query.filter_by(status="pendente").count()
+
+    return render_template(
+        'admin_relatorios.html',
+        total_idosos=total_idosos,
+        total_prestadores=total_prestadores,
+        total_pedidos=total_pedidos,
+        concluidos=concluidos,
+        pendentes=pendentes
+    )
 
 
 

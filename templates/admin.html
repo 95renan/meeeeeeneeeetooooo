@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Área Administrativa</title>
+    
+    <link href="../static/css/styles.css" rel="stylesheet" />
+    <link href="../static/css/styles-secaoservicos.css" rel="stylesheet" />
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-white py-3">
+        <div class="container px-5">
+            <a class="navbar-brand" href="/">
+                <span class="text-gradient fw-bolder text-primary">Meu Neto</span>
+            </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0 small fw-bolder">
+                    <li class="nav-item"><a class="nav-link active" aria-current="page" href="/">Início</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/funciona">Como Funciona</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/contato">Contato</a></li>
+                        <!--<li class="nav-item"><a class="nav-link" href="/login">Login</a></li>-->
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- PAINEL ADMINISTRATIVO -->
+    <div class="container mt-4">
+        <h2 class="admin-title fw-bold text-primary mb-4 text-center">Painel Administrativo</h2>
+
+        <!-- CARDS -->
+        <div class="row g-3 mb-4">
+            <div class="col-md-4">
+                <div class="card shadow-sm">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Usuários</h5>
+                        <p class="card-text">Gerenciar idosos e prestadores.</p>
+                        <a href="/admin?view=usuarios" class="btn btn-primary w-100">Acessar</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card shadow-sm">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Serviços</h5>
+                        <p class="card-text">Visualizar serviços em andamento.</p>
+                        <a href="/admin?view=servicos" class="btn btn-primary w-100">Acessar</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card shadow-sm">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Relatórios</h5>
+                        <p class="card-text">Acompanhar estatísticas gerais.</p>
+                        <a href="/admin?view=relatorios" class="btn btn-primary w-100">Acessar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SEÇÃO USUÁRIOS -->
+        <div id="secUsuarios" class="secao-admin" style="display:none;">
+            <h3 class="mb-3">Usuários</h3>
+            <p class="text-muted">Lista simples apenas para visualização. Pode ser expandida futuramente.</p>
+            <hr>
+
+            <h5>Idosos</h5>
+            <ul>
+                {% for idoso in idosos %}
+                    <li>{{ idoso.nome }} - {{ idoso.email }}</li>
+                {% endfor %}
+            </ul>
+
+            <h5 class="mt-4">Prestadores</h5>
+            <ul>
+                {% for p in prestadores %}
+                    <li>{{ p.nome }} - {{ p.email }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <!-- SEÇÃO SERVIÇOS -->
+        <div id="secServicos" class="secao-admin" style="display:none;">
+            <h3 class="mb-3">Serviços</h3>
+            <p class="text-muted">Pedidos registrados no sistema.</p>
+            <hr>
+            <ul>
+                {% for s in servicos %}
+                    <li>ID: {{ s.idAgendamento }} — {{ s.status }} — {{ s.dataInicioPedido }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <!-- SEÇÃO RELATÓRIOS -->
+        <div id="secRelatorios" class="secao-admin" style="display:none;">
+            <h3 class="mb-3">Relatórios</h3>
+            <p class="text-muted">Indicadores gerais do sistema.</p>
+            <hr>
+            <p><strong>Total de Idosos:</strong> {{ total_idosos }}</p>
+            <p><strong>Total de Prestadores:</strong> {{ total_prestadores }}</p>
+            <p><strong>Total de Pedidos:</strong> {{ total_pedidos }}</p>
+            <p><strong>Concluídos:</strong> {{ concluidos }}</p>
+            <p><strong>Pendentes:</strong> {{ pendentes }}</p>
+        </div>
+    </div>
+
+    <script>
+        function mostrarSecao(sec) {
+            document.querySelectorAll('.secao-admin').forEach(s => s.style.display = 'none');
+            document.getElementById(sec).style.display = 'block';
+            window.scrollTo({ top: 250, behavior: 'smooth' });
+        }
+    </script>
+
+    <!-- Footer -->
+    <footer class="bg-white py-4 mt-auto">
+        <div class="container px-5">
+            <div class="row align-items-center justify-content-between flex-column flex-sm-row">
+                <div class="col-auto"><div class="small m-0">Copyright &copy; Meu Neto 2025</div></div>
+                <div class="col-auto">
+                    <a class="small" href="#" data-bs-toggle="modal" data-bs-target="#termosUsoModal">Termos de Uso</a>
+                    <span class="mx-1">&middot;</span>
+                    <a class="small" href="#" data-bs-toggle="modal" data-bs-target="#privacidadeModal">Política de Privacidade</a>
+                    <span class="mx-1">&middot;</span>
+                    <a class="small" href="#" data-bs-toggle="modal" data-bs-target="#contatoModal">Contato</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    {% if view == 'usuarios' %}
+<script> mostrarSecao('secUsuarios'); </script>
+{% elif view == 'servicos' %}
+<script> mostrarSecao('secServicos'); </script>
+{% elif view == 'relatorios' %}
+<script> mostrarSecao('secRelatorios'); </script>
+{% endif %}
+</body>
+</html>
+
+

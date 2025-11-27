@@ -1,0 +1,33 @@
+/* admin.css */
+body {
+    background: #f5f7fa;
+}
+
+.card {
+    border-radius: 12px;
+}
+
+.card h5 {
+    font-weight: 600;
+}
+
+.btn-primary {
+    background-color: #1c7ed6;
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: #156bb3;
+}
+
+/* admin.css */
+.admin-title {
+    text-align: center !important;
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
+    font-size: 1.75rem;
+    color: #1c7ed6;
+}
+
+  /* Se houver conflito com outro CSS, use: */
+  /* .admin-title { text-align: center !important; } */
