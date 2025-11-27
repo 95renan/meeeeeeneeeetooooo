@@ -4,6 +4,8 @@ from datetime import datetime
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import func
 from sqlalchemy.exc import IntegrityError
+from sqlalchemy import desc
+
 
 # Inicialização do app Flask
 app = Flask(__name__)
@@ -99,7 +101,7 @@ def cadastrarIdoso():
     senha = (request.form.get('password') or '').strip()
     telefone = (request.form.get('fone') or '').strip()
     login = (request.form.get('login') or '').strip()
-    
+    parentesco = (request.form.get('relationship') or '').strip()
     nascimento_str = (request.form.get('nasc') or '').strip()
     nascimento = datetime.strptime(nascimento_str, "%Y-%m-%d").date() if nascimento_str else None
     
@@ -123,6 +125,7 @@ def cadastrarIdoso():
             senha=senha,
             telefone=telefone or None,
             login=login,
+            parentesco=parentesco,
             nascimento=nascimento,
             endCEP=endCEP,
             endNUMERO=endNUMERO,
@@ -134,7 +137,7 @@ def cadastrarIdoso():
         db.session.add(u)
         db.session.commit()
         flash('Cadastro realizado com sucesso!', 'success')
-        return redirect(url_for('home'))
+        return redirect(url_for('login'))
 
     except IntegrityError:
         db.session.rollback()
@@ -170,10 +173,11 @@ def cadastrarPrestador():
     comprovRes = (request.form.get('comprovRes') or '').strip()
     antecedentes = (request.form.get('anteced') or '').strip()
 
+    # Verifica se o login já existe
     login_existente = Prestador.query.filter_by(login=login).first()
     if login_existente:
         flash('Este login já está em uso. Escolha outro nome de usuário.', 'warning')
-        return redirect(url_for('cadastro_prestador'))
+        return redirect(url_for('cadastro_prestador'))  # rota do formulário de cadastro
 
     try:
         p = Prestador(
@@ -198,18 +202,21 @@ def cadastrarPrestador():
         )
         db.session.add(p)
         db.session.commit()
-        flash('Cadastro realizado com sucesso!', 'success')
-        return redirect(url_for('inicial_prestador'))
+
+        # Usuário cadastrado com sucesso
+        flash('Cadastro realizado com sucesso! Faça login para continuar.', 'success')
+        return redirect(url_for('loginprestador'))  # vai para a tela de login
 
     except IntegrityError:
         db.session.rollback()
         flash('Usuário já cadastrado com este login ou e-mail.', 'danger')
-        return redirect(url_for('login_prestador'))
+        return redirect(url_for('loginprestador'))
 
     except Exception as e:
         db.session.rollback()
         flash(f'Erro ao cadastrar: {str(e)}', 'danger')
-        return redirect(url_for('home')) 
+        return redirect(url_for('cadastro_prestador'))
+ 
     
 @app.route('/pedido/cadastrar', methods=['POST'])
 def cadastrarPedido():
@@ -298,29 +305,30 @@ def login_prestador():
     login = (request.form.get('login') or '').strip()
     senha = (request.form.get('senha') or '').strip()
 
-    # Verifica se os campos foram preenchidos
+    # Validação básica
     if not login or not senha:
         flash('Por favor, informe seu login e senha.', 'warning')
         return redirect(url_for('loginprestador'))
 
-    # Busca o idoso pelo nome de login
+    # Busca prestador pelo login
     user = Prestador.query.filter_by(login=login).first()
 
-    # Verifica se o usuário existe e se a senha está correta
     if not user or user.senha != senha:
         flash('Login ou senha incorretos. Tente novamente.', 'danger')
         return redirect(url_for('loginprestador'))
 
-    # Cria a sessão e redireciona
+    # Cria a sessão
     session['usuario_id'] = user.idPrestador
     session['usuario_nome'] = user.nome
     session['usuario_perfil'] = user.perfil
 
     flash(f'Bem-vindo(a), {user.nome}!', 'success')
+
+    # Redireciona para dashboard/admin ou inicial prestador
     if user.perfil == "admin":
         return redirect(url_for('admin_dashboard'))
-
     return redirect(url_for('inicial_prestador'))
+
 
 
 @app.route('/login', methods=['GET'])
@@ -619,19 +627,27 @@ def admin_dashboard():
     servicos = []
 
     if view == "usuarios":
-        idosos = Idoso.query.all()
-        prestadores = Prestador.query.all()
+        idosos = Idoso.query.order_by(desc(Idoso.idIdoso)).all()
+        prestadores = Prestador.query.order_by(desc(Prestador.idPrestador)).all()
 
     if view == "servicos":
-        servicos = Agendamento.query.all()
+        servicos = Agendamento.query.order_by(desc(Agendamento.idAgendamento)).all()
 
     if view == "relatorios":
+        # Estatísticas gerais
         total_idosos = Idoso.query.count()
         total_prestadores = Prestador.query.count()
         total_pedidos = Agendamento.query.count()
         concluidos = Agendamento.query.filter_by(status="concluido").count()
         pendentes = Agendamento.query.filter_by(status="pendente").count()
 
+        relatorios = {
+            "total_idosos": total_idosos,
+            "total_prestadores": total_prestadores,
+            "total_pedidos": total_pedidos,
+            "concluidos": concluidos,
+            "pendentes": pendentes
+        }
 
     return render_template(
     'admin.html',
