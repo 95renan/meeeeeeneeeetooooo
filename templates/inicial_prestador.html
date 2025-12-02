@@ -82,39 +82,34 @@
             <i class="bi bi-check-circle-fill me-2"></i> Serviços Concluídos
         </button>
 </li>
-
 </ul>
 
 <div class="tab-content">
-
-    <!-- ABA 1 -->
+    <!-- ABA 1 - Serviços Disponíveis -->
     <div class="tab-pane fade show active" id="disponiveis" role="tabpanel">
-
         <h2 class="section-title mb-4">Serviços Disponíveis para Aceitar</h2>
 
         {% if pedidos_disponiveis %}
         <div class="row g-4">
-            {% for p in pedidos_disponiveis %}
+            {% for agendamento, idoso in pedidos_disponiveis %}
             <div class="col-md-6">
                 <div class="md-card">
                     <div class="md-bar"></div>
                     <div class="md-content">
+                        <h3 class="md-title"><i class="bi bi-people"></i> {{ agendamento.servico }}</h3>
 
-                        <h3 class="md-title"><i class="bi bi-people"></i> {{ p.servico }}</h3>
+                        <p class="md-info"><strong>Solicitante:</strong> {{ idoso.nome }}</p>
+                        <p class="md-info"><strong>Data início:</strong> {{ agendamento.dataInicioServico.strftime("%d/%m/%Y") }}</p>
+                        <p class="md-info"><strong>Horário:</strong> {{ agendamento.horaDisponivel }}</p>
+                        <p class="md-info"><strong>Valor:</strong> R$ {{ "%.2f"|format(agendamento.valor) }}</p>
 
-                        <p class="md-info"><strong>Solicitante:</strong> {{ p.nome_solicitante }}</p>
-                        <p class="md-info"><strong>Data início:</strong> {{ p.dataInicioServico.strftime("%d/%m/%Y") }}</p>
-                        <p class="md-info"><strong>Horário:</strong> {{ p.horaDisponivel }}</p>
-                        <p class="md-info"><strong>Valor:</strong> R$ {{ "%.2f"|format(p.valor) }}</p>
+                        <p class="md-desc">{{ agendamento.descricao }}</p>
 
-                        <p class="md-desc">{{ p.descricao }}</p>
-
-                        <form method="POST" action="/prestador/aceitar/{{ p.idAgendamento }}">
+                        <form method="POST" action="/prestador/aceitar/{{ agendamento.idAgendamento }}">
                             <button class="btn btn-success btn-lg w-100 mt-3">
                                 <i class="bi bi-check-circle me-2"></i> Aceitar Serviço
                             </button>
                         </form>
-
                     </div>
                 </div>
             </div>
@@ -125,88 +120,80 @@
         {% endif %}
     </div>
 
+    <!-- ABA 2 - Serviços Aceitos -->
     <div class="tab-pane fade" id="aceitos" role="tabpanel">
+        <h2 class="section-title mb-4">Meus Serviços Aceitos</h2>
 
-    <h2 class="section-title mb-4">Meus Serviços Aceitos</h2>
+        {% if pedidos_aceitos %}
+        <div class="row g-4">
+            {% for agendamento, idoso in pedidos_aceitos %}
+            <div class="col-md-6">
+                <div class="md-card">
+                    <div class="md-bar"></div>
+                    <div class="md-content">
+                        <h3 class="md-title"><i class="bi bi-hand-thumbs-up"></i> {{ agendamento.servico }}</h3>
 
-    {% if pedidos_aceitos %}
-    <div class="row g-4">
-        {% for p in pedidos_aceitos %}
-        <div class="col-md-6">
-            <div class="md-card">
-                <div class="md-bar"></div>
-                <div class="md-content">
+                        <p class="md-info"><strong>Solicitante:</strong> {{ idoso.nome }}</p>
+                        <p class="md-info"><strong>Data início:</strong> {{ agendamento.dataInicioServico.strftime("%d/%m/%Y") }}</p>
+                        <p class="md-info"><strong>Horário:</strong> {{ agendamento.horaDisponivel }}</p>
+                        <p class="md-info"><strong>Valor:</strong> R$ {{ "%.2f"|format(agendamento.valor) }}</p>
+                        <p class="md-desc">{{ agendamento.descricao }}</p>
 
-                    <h3 class="md-title"><i class="bi bi-hand-thumbs-up"></i> {{ p.servico }}</h3>
-
-                    <p class="md-info"><strong>Solicitante:</strong> {{ p.nome_solicitante }}</p>
-                    <p class="md-info"><strong>Data início:</strong> {{ p.dataInicioServico.strftime("%d/%m/%Y") }}</p>
-                    <p class="md-info"><strong>Horário:</strong> {{ p.horaDisponivel }}</p>
-                    <p class="md-info"><strong>Valor:</strong> R$ {{ "%.2f"|format(p.valor) }}</p>
-                    <p class="md-desc">{{ p.descricao }}</p>
-
-                    <form action="/prestador/cancelar/{{ p.idAgendamento }}" method="POST" style="display:inline-block">
-                        <button class="btn btn-danger">Cancelar Aceitação</button>
-                    </form>
-
-                    <form action="/prestador/concluir/{{ p.idAgendamento }}" method="POST" style="display:inline-block">
-                        <button class="btn btn-primary">Concluir Serviço</button>
-                    </form>
-
+                        <div class="d-flex gap-2">
+                            <form action="/prestador/cancelar/{{ agendamento.idAgendamento }}" method="POST" style="flex: 1">
+                                <button class="btn btn-danger w-100">Cancelar Aceitação</button>
+                            </form>
+                            <form action="/prestador/concluir/{{ agendamento.idAgendamento }}" method="POST" style="flex: 1">
+                                <button class="btn btn-primary w-100">Concluir Serviço</button>
+                            </form>
+                        </div>
+                    </div>
                 </div>
             </div>
+            {% endfor %}
         </div>
-        {% endfor %}
+        {% else %}
+        <div class="alert alert-secondary text-center">Você ainda não aceitou nenhum serviço.</div>
+        {% endif %}
     </div>
-    {% else %}
-    <div class="alert alert-secondary text-center">Você ainda não aceitou nenhum serviço.</div>
-    {% endif %}
 
-    </div> 
-
+    <!-- ABA 3 - Serviços Concluídos -->
     <div class="tab-pane fade" id="concluidos" role="tabpanel" aria-labelledby="concluidos-tab">
+        <h2 class="section-title mb-4">Serviços Concluídos</h2>
 
-    <h2 class="section-title mb-4">Serviços Concluídos</h2>
+        {% if pedidos_concluidos %}
+        <div class="row g-4">
+            {% for agendamento, idoso in pedidos_concluidos %}
+            <div class="col-md-6">
+                <div class="md-card">
+                    <div class="md-bar bg-success"></div>
+                    <div class="md-content">
+                        <h3 class="md-title text-success">
+                            <i class="bi bi-check-circle-fill"></i> {{ agendamento.servico }}
+                        </h3>
 
-    {% if pedidos_concluidos %}
-    <div class="row g-4">
+                        <p class="md-info"><strong>Solicitante:</strong> {{ idoso.nome }}</p>
+                        <p class="md-info"><strong>Data:</strong> {{ agendamento.dataInicioServico.strftime("%d/%m/%Y") }}</p>
+                        <p class="md-info"><strong>Horário:</strong> {{ agendamento.horaDisponivel }}</p>
+                        <p class="md-info"><strong>Valor:</strong> R$ {{ "%.2f"|format(agendamento.valor) }}</p>
 
-        {% for p in pedidos_concluidos %}
-        <div class="col-md-6">
-            <div class="md-card">
-                <div class="md-bar bg-success"></div>
-                <div class="md-content">
+                        <p class="md-desc">{{ agendamento.descricao }}</p>
 
-                    <h3 class="md-title text-success">
-                        <i class="bi bi-check-circle-fill"></i> {{ p.servico }}
-                    </h3>
-
-                    <p class="md-info"><strong>Solicitante:</strong> {{ p.idoso.nome }}</p>
-                    <p class="md-info"><strong>Data:</strong> {{ p.dataInicioServico.strftime("%d/%m/%Y") }}</p>
-                    <p class="md-info"><strong>Horário:</strong> {{ p.horaDisponivel }}</p>
-                    <p class="md-info"><strong>Valor:</strong> R$ {{ "%.2f"|format(p.valor) }}</p>
-
-                    <p class="md-desc">{{ p.descricao }}</p>
-
-                    <span class="badge bg-success mt-2">Concluído</span>
-
+                        <span class="badge bg-success mt-2">Concluído</span>
+                    </div>
                 </div>
             </div>
+            {% endfor %}
         </div>
-        {% endfor %}
-
+        {% else %}
+        <div class="alert alert-secondary text-center">
+            Nenhum serviço concluído ainda.
+        </div>
+        {% endif %}
     </div>
-
-    {% else %}
-    <div class="alert alert-secondary text-center">
-        Nenhum serviço concluído ainda.
-    </div>
-    {% endif %}
 </div>
-
 </div>
 </main>
-
 
     <!-- Rodapé -->
     <footer class="bg-white py-4 mt-auto">

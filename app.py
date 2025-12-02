@@ -533,13 +533,32 @@ def inicial_prestador():
     prestador_id = session['usuario_id']
     nome = session.get('usuario_nome')
 
-    # Pedidos que ainda não foram aceitos por ninguém
-    pedidos_disponiveis = Agendamento.query.filter(Agendamento.aceito_por.is_(None)).all()
+    # Pedidos disponíveis COM JOIN para trazer o nome do idoso
+    pedidos_disponiveis = (
+        db.session.query(Agendamento, Idoso)
+        .join(Idoso, Agendamento.idIdoso == Idoso.idIdoso)
+        .filter(Agendamento.aceito_por.is_(None))
+        .order_by(desc(Agendamento.dataInicioPedido))
+        .all()
+    )
     
-
-    # Pedidos que este prestador aceitou
-    pedidos_aceitos = Agendamento.query.filter_by(aceito_por=prestador_id, status="aceito").all()
-    pedidos_concluidos = Agendamento.query.filter_by(aceito_por=prestador_id, status="concluido").all()
+    # Pedidos aceitos COM JOIN para trazer o nome do idoso
+    pedidos_aceitos = (
+        db.session.query(Agendamento, Idoso)
+        .join(Idoso, Agendamento.idIdoso == Idoso.idIdoso)
+        .filter(Agendamento.aceito_por == prestador_id, Agendamento.status == "aceito")
+        .order_by(desc(Agendamento.dataInicioPedido))
+        .all()
+    )
+    
+    # Pedidos concluídos COM JOIN para trazer o nome do idoso
+    pedidos_concluidos = (
+        db.session.query(Agendamento, Idoso)
+        .join(Idoso, Agendamento.idIdoso == Idoso.idIdoso)
+        .filter(Agendamento.aceito_por == prestador_id, Agendamento.status == "concluido")
+        .order_by(desc(Agendamento.dataInicioServico))
+        .all()
+    )
 
     return render_template(
         'inicial_prestador.html',

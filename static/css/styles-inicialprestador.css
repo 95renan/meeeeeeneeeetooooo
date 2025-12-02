@@ -161,7 +161,7 @@ footer {
   /* Efeito de digitação */
 @keyframes typing {
     from { width: 0; }
-    to { width: 14ch; } /* Ajuste o tamanho do texto */
+    to { width: 20ch; } /* Ajuste o tamanho do texto */
 }
 
   /* Cursor piscando */
