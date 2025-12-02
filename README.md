@@ -1,14 +1,14 @@
-# 🧓 Meu Neto — Plataforma de Serviços para Idosos
+Meu Neto — Plataforma de Serviços para Idosos
 
-O **Meu Neto** é uma plataforma web desenvolvida em **Flask + SQLAlchemy + MySQL**, criada para conectar **idosos** a **prestadores de serviço**, permitindo solicitar, aceitar e acompanhar serviços de forma simples, rápida e segura.
+O Meu Neto é uma plataforma web desenvolvida em **Flask + SQLAlchemy + MySQL**, criada para conectar **idosos** a **prestadores de serviço**, permitindo solicitar, aceitar e acompanhar serviços de forma simples, rápida e segura.
 
 Este projeto foi desenvolvido como parte de um sistema completo de agendamentos, incluindo autenticação, cadastro, gerenciamento de usuários, painel do prestador, área do idoso e painel administrativo.
 
 ---
 
-## 🚀 Funcionalidades Principais
+Funcionalidades Principais
 
-### 👴 Área do Idoso
+Área do Idoso
 - Cadastro completo com endereço
 - Login seguro com sessão
 - Criação de pedidos de serviço
@@ -23,7 +23,7 @@ Este projeto foi desenvolvido como parte de um sistema completo de agendamentos,
 
 ---
 
-### 🛠️ Área do Prestador de Serviços
+Área do Prestador de Serviços
 - Cadastro com informações de serviços oferecidos
 - Login seguro
 - Painel com três seções:
@@ -37,7 +37,7 @@ Este projeto foi desenvolvido como parte de um sistema completo de agendamentos,
 
 ---
 
-### 🛡️ Área Administrativa
+Área Administrativa
 Acessada apenas por usuários com `perfil = "admin"`.
 
 Inclui:
@@ -52,7 +52,7 @@ Inclui:
 
 ---
 
-## 📚 Tecnologias Utilizadas
+Tecnologias Utilizadas
 
 - **Python 3**
 - **Flask**
@@ -64,7 +64,7 @@ Inclui:
 
 ---
 
-## 🗂️ Estrutura do Projeto
+Estrutura do Projeto
 
 /Meu Neto/
 │
@@ -90,11 +90,10 @@ Inclui:
 
 ---
 
-## 🛠️ Como Executar o Projeto
+Como Executar o Projeto
 
-### 1️⃣ Clone o repositório
+Clone o repositório
 
-```bash
 git clone https://github.com/95renan/meeeeeeneeeetooooo.git
 cd SEU_REPOSITORIO
 
