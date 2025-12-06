@@ -15,7 +15,7 @@ app = Flask(__name__)
 # Configurações principais
 app.config['SECRET_KEY'] = 'dev-secret-key'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['SQLALCHEMY_DATABASE_URI'] = "mysql+pymysql://root:UIwQBHXZzDuggWvYDYRWEVRlgcpybEnO@shuttle.proxy.rlwy.net:15458/railway"
+app.config['SQLALCHEMY_DATABASE_URI'] = "mysql+pymysql://root:SmzrLpxXwmYwoAAtKEdCVadAoIjKLAAG@maglev.proxy.rlwy.net:53049/railway"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 
