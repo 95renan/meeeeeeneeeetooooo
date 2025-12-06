@@ -1,2 +1,12 @@
-venv\
-sdfsfsdf
+# Adicione se não tiver:
+.env
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.venv/
+*.log
+instance/
